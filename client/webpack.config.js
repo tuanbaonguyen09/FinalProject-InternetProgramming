@@ -79,6 +79,9 @@ module.exports = {
       }),
     ],
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [
     new webpack.BannerPlugin('Name: FinalProject ; Version-Deployment : v1.0; Version-Test: v1.0'),
     new webpack.ProvidePlugin({

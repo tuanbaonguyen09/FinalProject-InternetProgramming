@@ -1,12 +1,15 @@
 const defaultColors = require("tailwindcss/colors");
 const COLORS = {
-  success: {
-    100: "#E9F6EC",
-    200: "#DFFCE6",
-    300: "#88CE97",
-    400: "#28A745",
-    500: "#20913A",
+  primary: {
+    'sideBar': "#1E1F25",
+    'main': "#131517",
+    'card': "#1E1F25",
+    'button': "#EE6C4D",
   },
+  font:{
+    'sideBar' : "#9394A1",
+    'main' : "#FFFFFF"
+  }
 }
 
 function genarateColorTDS() {
@@ -74,7 +77,8 @@ module.exports = {
         ...COLORS,
       },
       fontSize: {
-          'heading-1': ['48px', '56px'],
+          'heading': ['34px', ''],
+          'menu': ['16px', ''],
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif']

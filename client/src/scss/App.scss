@@ -4,3 +4,17 @@
 
 // Font define
 @import '../fonts/lato/style.css';
+
+
+.App{
+    @apply h-screen w-screen bg-primary-main font-lato;
+
+    & > .AppInner{
+        @apply flex 
+        mx-auto w-full h-full max-w-[1440px] ;
+
+        & > .Content{
+            @apply w-full flex flex-col; 
+        }
+    }
+}

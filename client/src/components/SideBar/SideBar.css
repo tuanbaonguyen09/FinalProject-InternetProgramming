@@ -1,0 +1,111 @@
+
+
+.SideBar{
+    @apply w-full text-font-sideBar;
+    transition: all 0.3s ease;
+    background: linear-gradient(136deg, #2E335A 0%, #1C1B33 100%);
+    max-width: 16%;
+    
+    & > .SideBarInner{
+        @apply w-full h-full;
+
+        & >.MainIcon{
+            @apply px-[22px] py-[22px];
+        }
+
+
+        & >.heading{
+            @apply flex justify-between items-center text-white font-bold text-[26px] text-center px-6 py-3.5;
+
+            .burgerIcon{
+                @apply relative flex flex-col  gap-1.5 w-8 h-8;
+
+                span:nth-child(1) {
+                    position: absolute;
+                    top: 0;
+                }
+                span:nth-child(2) {
+                    position: absolute;
+                    top: calc(50% - 4px);
+                }
+                span:nth-child(3) {
+                    position: absolute;
+                    top: calc(100% - 8px);
+                }
+
+
+                span{
+                    @apply w-full bg-white rounded-lg h-1;
+                    transition: all 0.3s ease;
+                }
+            }
+            .burgerIcon.disabled{
+                
+                span:nth-child(1) ,
+                span:nth-child(3) {
+                    background-color: red;
+                    top: calc(50% - 4px);   
+                }
+                span:nth-child(1) {
+                    transform: rotate(45deg);
+                }
+                span:last-child {
+                    transform: rotate(-45deg);
+                }
+                span:nth-child(2){
+                    opacity: 0;
+                }
+            }
+
+        }
+
+        & > .list {
+            @apply mt-10 flex flex-col ;
+
+            .item{
+                @apply flex gap-3 text-font-sideBar justify-center items-center py-3 px-5 border-[#EBEBF599] border-t ;
+                
+                .text{
+                    @apply text-menu font-semibold;
+                }
+                &:hover{
+                    @apply bg-slate-500;
+                }
+            }
+            .item.active{
+                @apply bg-slate-100;
+            }
+        }
+    }
+
+}
+
+.SideBar.disabled{
+    @apply w-full ;
+    max-width: 7%;
+    transition: all 0.3s ease;
+
+    .MainIcon{
+        @apply w-full mx-auto py-[22px];
+    }
+    .heading{
+        @apply px-2 justify-center;
+
+        .text{
+            @apply hidden;
+        }
+    }
+
+
+    .list {
+        @apply mt-10 flex flex-col;
+
+        .item{
+            @apply justify-center  ; 
+
+            .text{
+                @apply hidden;
+            }
+        }
+    }
+}
