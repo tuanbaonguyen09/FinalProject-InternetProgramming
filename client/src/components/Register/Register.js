@@ -1,110 +1,102 @@
 import * as React from 'react'
 import './Register.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate} from 'react-router-dom'
+
 import axios from 'axios';
 
 
-export default class Register extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            db_accounts: [],
-            value : '',
-            emailInput:'',
-            passwordInput:'',
-            retypePasswordInput:'',
-            emailCheck :'',
-            passwordCheck: '',
-            retypePasswordCheck:'',
-        }
-        this.handleEmailChange = this.handleEmailChange.bind(this)
-        this.handlePasswordChange = this.handlePasswordChange.bind(this)
-        this.handleFormSubmit = this.handleFormSubmit.bind(this)
-        this.handleRetypePasswordChange = this.handleRetypePasswordChange(this)
-    }
+export default function Register() {
+    const navigate = useNavigate()
 
-    componentDidMount(){
-        axios.get('/api/accounts').then(result => {
-          this.setState({db_accounts:  result.data.accounts})
+    const [email, setEmail] = React.useState()
+    const [emailErr, setEmailErr] = React.useState(true)
+
+    const [password, setPassword] = React.useState()
+    const [passwordErr, setPasswordErr] = React.useState(true)
+    
+    const [rePassword, setRePassword] = React.useState()
+    const [rePasswordErr, setRePasswordErr] = React.useState(true)
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault()
+        if(emailErr || passwordErr || rePasswordErr){
+            alert("Vui lòng nhập đúng thông tin đăng ký")
+            return
+        }
+        const configuration = {
+            method: "post",
+            url: "/api/register",
+            data: {
+              email : email,
+              password: password,
+            },
+        }
+        axios(configuration).then(result => {
+            alert(result.data.message)
+            navigate('/login')
         }).catch(error => console.log(error))
-    }   
-
-    handleFormSubmit(event){
-        event.preventDefault();
-        //Handle Login Successful
-        this.state.db_accounts.forEach( (item, index) => {
-            if(item.email == this.state.emailInput && item.password == this.state.passwordInput && this.state.emailCheck.length < 1 && this.state.passwordCheck < 1){
-                console.log('Successful')
-            }
-        })
-
-    }
-    handleRetypePasswordChange(event){
-        this.setState({retypePasswordCheck: this.retypePasswordValidation(event.target.value)})
-    }
-    
-    retypePasswordValidation(input){
-        if (input == this.state.passwordInput){
-            return ""
-        }
-        return "Mật khẩu không giống"
     }
 
-    handleEmailChange(event){
-        this.setState({emailInput:event.target.value ,emailCheck: this.emailValidation(event.target.value)})
+    const handleRePasswordChange = (event) => {
+        setRePassword(event.target.value)
+        if(rePasswordValidation(event.target.value)) setRePasswordErr(false)
+        else setRePasswordErr(true)
     }
 
-    emailValidation(input){
+    const rePasswordValidation = (value) => {
+        return (value == password)
+    }
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value)
+        if(passwordValidation(event.target.value)) setPasswordErr(false)
+        else setPasswordErr(true)
+    }
+
+    const passwordValidation = (value) => {
+        return (value.length >= 5)
+    }
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value)
+        if(emailValidation(event.target.value)) setEmailErr(false)
+        else setEmailErr(true)
+    }
+    const emailValidation = (value) => {
         const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-        if(regex.test(input)) {
-            return "";
-        }
-        return "Vui lòng nhập email hợp lệ";
+        return value.match(regex)
     }
 
-    handlePasswordChange(event){
-        this.setState({passwordInput:event.target.value, passwordCheck: this.passwordValidation(event.target.value)})
-    }
-
-    passwordValidation(input){
-        if(input.length  >= 5) {
-            return "";
-        }
-        return "Vui lòng nhập password lớn hơn 4 kí tự";
-    }
-    render(){
-        return(
-            <div className="Register w-screen h-screen flex">
-                <div className="Wallpaper w-full bg-green-600">
-    
-                </div>
-                <div className="RegisterInner w-full ">
-                    <div className="RegisterWindow">
-                        <h1>Please Register</h1>
-                        <form className="RegisterForm" action="">
-                            <div className="item">
-                                <label htmlFor="email">Your Email</label>
-                                <input type="email" name="email" id="email" placeHolder="Email"  onChange={this.handleEmailChange}/>
-                                <div className="validation" id="email_validation">{this.state.emailCheck}</div>
-                            </div>
-                            <div className="item">
-                                <label htmlFor="password">Your Password</label>
-                                <input type="password" name="password" id="password" placeHolder="Password" onChange={this.handlePasswordChange}/>
-                                <div className="validation" id="password_validation">{this.state.passwordCheck}</div>
-                            </div>
-                            <div className="item">
-                                <label htmlFor="repassword">Retype your Password</label>
-                                <input type="password" name="repassword" id="repassword" placeHolder="Retype Password" onChange={this.handleRetypePasswordChange}/>
-                            </div>
-                            <button className="RegisterButton">
-                                Register
-                            </button>
-                        </form>
-                    </div>
-                </div>
-    
+    return(
+        <div className="Register w-screen h-screen flex">
+            <div className="Wallpaper w-full bg-green-600">
             </div>
-        )
-    }
+            <div className="RegisterInner w-full ">
+                <div className="RegisterWindow">
+                    <h1>Please Register</h1>
+                    <form className="RegisterForm" action="">
+                        <div className="item">
+                            <label htmlFor="email">Your Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email" onChange={handleEmailChange} />
+                            <div className="validation" id="email_validation">{emailErr ? "Vui lòng nhập email hợp lệ":""}</div>
+                        </div>
+                        <div className="item">  
+                            <label htmlFor="password">Your Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password"  onChange={handlePasswordChange}/>
+                            <div className="validation" id="password_validation">{passwordErr ? "Vui lòng nhập mật khẩu hợp lệ":""}</div>
+                        </div>
+                        <div className="item">
+                            <label htmlFor="repassword">Retype your Password</label>
+                            <input type="password" name="repassword" id="repassword" placeholder="Retype Password" onChange={handleRePasswordChange}/>
+                            <div className="validation">{rePasswordErr ? "Mật khẩu nhập lại không giống":""}</div>
+                        </div>
+                        <button className="RegisterButton" onClick={handleFormSubmit}>
+                            Register
+                        </button>
+                    </form>
+                </div>
+            </div>
 
+        </div>
+    )
 }

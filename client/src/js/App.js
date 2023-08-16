@@ -17,7 +17,6 @@ import '../scss/App.scss'
 
 
 
-
 const App = () => {
   library.add(fas)
 
