@@ -81,6 +81,13 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: "http://localhost:5000",
+        secure: false,
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     new webpack.BannerPlugin('Name: FinalProject ; Version-Deployment : v1.0; Version-Test: v1.0'),

@@ -15,7 +15,6 @@ import {useState} from 'react'
  
 
 export default function SideBar() {
-
     const [isActive, setIsActive] = useState(false)
 
     const menuClickHandler = () => {
@@ -29,7 +28,7 @@ export default function SideBar() {
             icon: <FontAwesomeIcon icon="fa-solid fa-house" className="text-[24px]"/>,
         },
         {
-            path: "/upload",
+            path: "/home/upload",
             Name: "Upload",
             icon: <FontAwesomeIcon icon="fa-solid fa-upload" className="text-[24px]"/>,
         },
@@ -42,7 +41,7 @@ export default function SideBar() {
                     <img src={MainIcon} alt="" />           
                 </div>
                 <div className="heading">
-                    <div className="text">Heading</div>
+                    <div className="text">Menu</div>
                     <button className={!isActive? "burgerIcon" : "burgerIcon disabled"} onClick={menuClickHandler}>
                         <span></span>
                         <span></span>

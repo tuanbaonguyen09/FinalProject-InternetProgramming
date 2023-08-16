@@ -1,0 +1,45 @@
+.Login{
+
+    max-width: 1440px;
+    max-height: 900px;
+
+    margin: auto;
+
+    & > .LoginInner{
+
+        & >.LoginWindow{
+            @apply flex flex-col gap-8 p-4;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.40);
+            position: relative;
+            max-width: 400px;
+            min-height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            h1{
+                @apply text-black text-center text-[40px]
+            }
+
+            .LoginForm{
+                @apply flex flex-col gap-3;
+
+                .item{
+                    @apply flex flex-col gap-1;
+
+                    input{
+                        @apply rounded-lg px-5 py-2.5 border border-[1px_solid_rgba(0,0,0,0.40)];
+                    }
+
+                    .validation{
+                        @apply text-red-600 font-semibold text-[10px];
+                    }
+                }
+                .LoginButton{
+                    @apply mt-4 bg-primary-sideBar text-white text-center py-4 rounded-xl;
+                }
+            }
+        }
+    }
+}

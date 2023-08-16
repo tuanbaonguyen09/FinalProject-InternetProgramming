@@ -18,7 +18,7 @@
             @apply flex justify-between items-center text-white font-bold text-[26px] text-center px-6 py-3.5;
 
             .burgerIcon{
-                @apply relative flex flex-col  gap-1.5 w-8 h-8;
+                @apply relative flex flex-col  gap-1.5 w-6 h-6;
 
                 span:nth-child(1) {
                     position: absolute;
@@ -63,7 +63,7 @@
             @apply mt-10 flex flex-col ;
 
             .item{
-                @apply flex gap-3 text-font-sideBar justify-center items-center py-3 px-5 border-[#EBEBF599] border-t ;
+                @apply flex gap-3 text-font-sideBar items-center py-3 px-5 border-[#EBEBF599] border-t ;
                 
                 .text{
                     @apply text-menu font-semibold;
