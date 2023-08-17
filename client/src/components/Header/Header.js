@@ -2,10 +2,10 @@ import * as React from 'react';
 import './Header.css'
 //font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { UserContext } from '../../context/UserContext.jsx';
 
-import {NavLink} from 'react-router-dom'
-export default function Header() {
-
+export default function Header(props) {
+    const {userName} = React.useContext(UserContext)
     return ( 
         <header className="Header">
             <div className="HeaderInner flex justify-between items-center px-6 py-6 border-b border-[#F9F9F9]">
@@ -22,9 +22,9 @@ export default function Header() {
                     <div className="DropDownButton">
                     </div>
                 </div> */}
-                <NavLink to='/login' className="LoginButton px-9 py-2 rounded-lg bg-slate-600 text-white hover:bg-slate-400">
-                    Login
-                </NavLink>
+                <div>
+                    Xin chào {userName}
+                </div>
             </div>
         </header>
     )

@@ -1,5 +1,5 @@
 .Home{
-    @apply h-screen w-screen bg-primary-main font-lato;
+    @apply h-screen w-screen bg-white font-lato;
 
     & > .HomeInner{
         @apply flex 

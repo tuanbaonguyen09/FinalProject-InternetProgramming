@@ -22,7 +22,6 @@ app.use(
 
 
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
@@ -68,8 +67,8 @@ var con = mysql.createConnection({
         if (err) throw err;
         if (result.length > 0) {
           if (password == result[0].password){
-              req.session.user = result;
-              res.send(result);
+              req.session.user = result
+              res.send(result)
             } else {
               res.json({ message: "Sai mật khẩu" });
             }

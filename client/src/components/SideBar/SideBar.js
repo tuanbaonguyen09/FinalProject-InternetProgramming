@@ -23,7 +23,7 @@ export default function SideBar() {
 
     const items = [
         {
-            path: "/",
+            path: "/home/main",
             Name: "Home",
             icon: <FontAwesomeIcon icon="fa-solid fa-house" className="text-[24px]"/>,
         },
