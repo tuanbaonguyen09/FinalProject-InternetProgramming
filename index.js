@@ -42,13 +42,7 @@ con.connect(function(err){
   (err) ? console.log(err) : console.log(con);
 });
 
-var storage = multer.diskStorage ({
-  destination : './uploads',
-  filename: function (req, file, cb) {
-    cb (null,req.body.userName + file.originalname )
-  }
-})
-var upload = multer({ storage: storage }).single("file");
+const upload = multer({storage:multer.memoryStorage()})
 
 app.post('/api/register', (req, res) => {
 const email = req.body.email;
@@ -89,10 +83,27 @@ app.post('/api/login', (req, res) => {
   )
 })
 
-app.post('/api/upload',upload, (req, res) => {
-  console.log(req.file)
+app.post('/api/upload',upload.single('file'), (req, res) => {
+  const imgBuffer = req.file.buffer.toString('base64')
+  const name = req.session.user[0].email.split('@')[0];
+  const sql = `INSERT INTO ${name} VALUES(NULL,?,CURDATE(),?)`;
+  con.query(sql, [req.file.originalname,imgBuffer], (err,result) => {
+    if(err) throw err
+    res.json({message:"Upload thành công !"})
+  })
 })
 
+app.post('/api/gallery', (req,res) => {
+  const name = req.session.user[0].email.split('@')[0];
+  const sql = `SELECT * FROM ${name}`
+  con.query(sql, (err, result) => {
+    if (err) throw err
+    if(result.length > 0) 
+      res.json({gallery: result})
+    else 
+    res.json({ message: "Thư viện trống" });
+  })
+})
 
 app.get('/api/login', (req, res) => {
   if(req.session.user){

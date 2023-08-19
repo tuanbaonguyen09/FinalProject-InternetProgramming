@@ -1,9 +1,17 @@
 import * as React from 'react'  
 import axios from 'axios'
 import { UserContext } from '../../context/UserContext.jsx';
+import {useNavigate } from 'react-router-dom'
 
 export default function Upload(){
-
+    const navigate = useNavigate()
+    React.useEffect(() => {
+      axios.get('/api/login').then((response) => {
+        if(response.data.loggedIn == false){
+          navigate('/login')
+        } 
+      })
+    }, [])
     const [file, setFile] = React.useState()
     const {userName,setUserName} = React.useContext(UserContext)
 
@@ -22,7 +30,7 @@ export default function Upload(){
           },
         })
         .then((response) => {
-          console.log(response.data.message);
+          alert(response.data.message);
         })
         .catch((error) => {
           console.log(error);
