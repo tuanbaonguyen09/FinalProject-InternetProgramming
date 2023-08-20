@@ -1,9 +1,10 @@
 import * as React from 'react'
 import './Register.css'
-import { NavLink, useNavigate} from 'react-router-dom'
-
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import RegisterBanner from '../../img/Login & Register/RegisterBanner.jpg'
 
 export default function Register() {
     const navigate = useNavigate()
@@ -33,7 +34,9 @@ export default function Register() {
         }
         axios(configuration).then(result => {
             alert(result.data.message)
-            navigate('/login')
+            if(result.data.redir)
+            navigate('/login') 
+            else return
         }).catch(error => console.log(error))
     }
 
@@ -68,32 +71,34 @@ export default function Register() {
     }
 
     return(
-        <div className="Register w-screen h-screen flex">
-            <div className="Wallpaper w-full bg-green-600">
-            </div>
-            <div className="RegisterInner w-full ">
-                <div className="RegisterWindow">
-                    <h1>Please Register</h1>
+        <div className="Register">
+            <div className="RegisterInner">
+                <div className="RegisterWindow w-full">
+                    <div className="text-[32px] mb-8 font-bold ">Đăng Ký</div>
                     <form className="RegisterForm" action="">
                         <div className="item">
-                            <label htmlFor="email">Your Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email" onChange={handleEmailChange} />
+                            <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />
+                            <input type="email" name="email" id="email" placeholder="Your Email" onChange={handleEmailChange} />
                             <div className="validation" id="email_validation">{emailErr ? "Vui lòng nhập email hợp lệ":""}</div>
                         </div>
                         <div className="item">  
-                            <label htmlFor="password">Your Password</label>
-                            <input type="password" name="password" id="password" placeholder="Password"  onChange={handlePasswordChange}/>
+                            <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-key" />
+                            <input type="password" name="password" id="password" placeholder="Your Password"  onChange={handlePasswordChange}/>
                             <div className="validation" id="password_validation">{passwordErr ? "Vui lòng nhập mật khẩu hợp lệ":""}</div>
                         </div>
                         <div className="item">
-                            <label htmlFor="repassword">Retype your Password</label>
-                            <input type="password" name="repassword" id="repassword" placeholder="Retype Password" onChange={handleRePasswordChange}/>
+                            <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-arrows-rotate" />
+                            <input type="password" name="repassword" id="repassword" placeholder="Retype Your Password" onChange={handleRePasswordChange}/>
                             <div className="validation">{rePasswordErr ? "Mật khẩu nhập lại không giống":""}</div>
                         </div>
                         <button className="RegisterButton" onClick={handleFormSubmit}>
-                            Register
+                            Đăng Ký
                         </button>
                     </form>
+                
+                </div>
+                <div className="w-full h-full">
+                    <img className="object-cover object-center" src={RegisterBanner} alt="" />
                 </div>
             </div>
 

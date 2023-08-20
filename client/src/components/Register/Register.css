@@ -1,23 +1,10 @@
 .Register{
-
-    max-width: 1440px;
-    max-height: 900px;
-
-    margin: auto;
-
+    @apply font-lato  h-screen flex justify-center items-center;
     & > .RegisterInner{
-
+        @apply 2xl:max-w-[1000px] rounded-2xl shadow-lg py-[65px] px-12 
+        flex items-center gap-14 w-full max-w-[90%];
         & >.RegisterWindow{
-            @apply flex flex-col gap-8 p-4 shadow-sm;
-            border-radius: 10px;
-
-            position: relative;
-            max-width: 400px;
-            min-height: 600px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-
+            @apply flex flex-col p-4;
             h1{
                 @apply text-black text-center text-[40px]
             }
@@ -26,17 +13,21 @@
                 @apply flex flex-col gap-3;
 
                 .item{
-                    @apply flex flex-col gap-1;
+                    @apply relative flex flex-col gap-1;
 
                     input{
-                        @apply rounded-lg px-5 py-2.5 border border-[1px_solid_rgba(0,0,0,0.40)];
+                        @apply 
+                        text-[16px]
+                        focus:outline-none 
+                        px-[30px] py-1.5 border-b border-[1px_solid_rgba(0,0,0,0.6)];
                     }
                     .validation{
-                        @apply text-red-600 font-semibold text-[10px];
+                        @apply text-[#cc0000] text-[14px];
                     }
                 }
                 .RegisterButton{
-                    @apply mt-4 bg-primary-sideBar text-white text-center py-4 rounded-xl;
+                    @apply hover:bg-slate-800
+                    mt-4 bg-primary-sideBar text-white text-center py-3.5 rounded-lg;
                 }
             }
         }

@@ -5,6 +5,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext.jsx';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import LoginBanner from '../../img/Login & Register/LoginBanner.jpg'
+
+
+
 export default function Login(){
     const navigate = useNavigate()
     const {isLogin,setIsLogin} = React.useContext(UserContext)
@@ -18,13 +23,6 @@ export default function Login(){
 
     axios.defaults.withCredentials = true;
 
-    React.useEffect(() => {
-      axios.get('/api/login').then((response) => {
-        if(response.data.loggedIn == true){
-            setIsLogin(true)
-        }
-      })
-    }, [])
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
@@ -66,39 +64,39 @@ export default function Login(){
         if(emailValidation(event.target.value)) setEmailErr(false)
         else setEmailErr(true)
     }
+
     const emailValidation = (value) => {
         const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
         return value.match(regex)
     }
     return(
-        <div className="Login w-screen h-screen flex">
-            <div className="LoginInner w-full ">
-                <div className="LoginWindow">
-                    <h1>Please Login</h1>
-                    <h1>{isLogin ? "Welcome" : ""}</h1>
-                    <form className="LoginForm" action="">
+        <div className="Login">
+            <div className="LoginInner">
+                <div className="w-full h-full">
+                    <img className="object-center" src={LoginBanner} alt="" />
+                </div>
+                <div className="LoginWindow w-full">
+                    <div className="text-[32px] mb-8 font-bold">Đăng Nhập</div>
+                    <form className="LoginForm" action="" >
                         <div className="item">
-                            <label htmlFor="email">Your Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email" onChange={handleEmailChange} />
+                            <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />
+                            <input type="email" name="email" id="email" placeholder="Your Email" onChange={handleEmailChange} />
                             <div className="validation" id="email_validation">{emailErr ? "Vui lòng nhập email hợp lệ":""}</div>
                         </div>
                         <div className="item">  
-                            <label htmlFor="password">Your Password</label>
-                            <input type="password" name="password" id="password" placeholder="Password"  onChange={handlePasswordChange}/>
+                            <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-key" />
+                            <input type="password" name="password" id="password" placeholder="Your Password"  onChange={handlePasswordChange}/>
                             <div className="validation" id="password_validation">{passwordErr ? "Vui lòng nhập mật khẩu hợp lệ":""}</div>
                         </div>
                         <button className="LoginButton" onClick={handleFormSubmit}>
-                            Log in
+                            Đăng Nhập
                         </button>
-                        <div className="flex gap-2 items-center text-[13px]">
-                            <div className="opacity-40">Don’t have an account?</div>
-                            <NavLink to="/register">Sign Up</NavLink>
+                        <div className="flex gap-2 items-center text-[14px]">
+                            <div className="opacity-40">Chưa có tài khoản ?</div>
+                            <NavLink to="/register">Đăng ký</NavLink>
                         </div>
                     </form>
                 </div>
-            </div>
-            <div className="Wallpaper w-full bg-blue-800">
-
             </div>
         </div>
     )
