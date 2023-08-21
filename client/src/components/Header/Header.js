@@ -2,28 +2,65 @@ import * as React from 'react';
 import './Header.css'
 //font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UserContext } from '../../context/UserContext.jsx';
-
+import axios from 'axios'
 export default function Header(props) {
-    const {userName} = React.useContext(UserContext)
+    const user = props.user[0]
+    const checkLogOut = props.handleLogout
+    const [dropDown, setDropdown] = React.useState(false)
+
+    const configuration = {
+        method: "post",
+        url: "/api/logout",
+    }
+    
+    const handleLogout = () => {
+        axios(configuration).then(response => {
+            alert(response.data.message)
+            checkLogOut(true)
+        }).catch(error => console.log(error))
+    }
+
+    const handleDropDown = () => {
+        setDropdown(!dropDown)
+    }
+
+
     return ( 
         <header className="Header">
-            <div className="HeaderInner flex justify-between items-center px-6 py-6 border-b border-[#F9F9F9]">
+            <div className="HeaderInner">
                 <div className="Title text-heading">
-                     This is HEader   
+                    Project Internet Programming  
                 </div>
-                {/* <div className="User flex gap-4">
-                    <div className="Avatar w-9 h-9 rounded-full bg-red-300">
-
+                <div className="flex gap-4 ">
+                    Xin chào
+                    <button onClick={handleDropDown}><FontAwesomeIcon icon="fa-solid fa-chevron-down"/></button>
+                </div>
+                
+            </div>
+            <div className={dropDown ? 'dropDown' : 'dropDown disabled'}>
+                <div className="dropDownInner">
+                    <div className="profile">
+                        <div className="rounded-full w-9 h-9 p-2 flex items-center justify-center bg-[#393E46]">
+                            <FontAwesomeIcon icon="fa-solid fa-user" className='text-white' />
+                        </div>
+                        <div className="text-[#393E46] text-[16px] font-bold">
+                            {user.email}
+                        </div>
                     </div>
-                    <div className="Name">
-                        
+                    <div className="list">
+                        <div className='item'>
+                            <FontAwesomeIcon icon="fa-solid fa-address-card" className="icon"/>
+                            <div className="text">
+                                Thông tin tài khoản
+                            </div>
+                        </div>
+                        <button onClick={handleLogout} className='item'>
+                            <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" className="icon"/>
+                            <div className="text">
+                               Đăng xuất
+                            </div>
+                        </button>
                     </div>
-                    <div className="DropDownButton">
-                    </div>
-                </div> */}
-                <div>
-                    Xin chào {userName}
                 </div>
             </div>
         </header>
