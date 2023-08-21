@@ -23,14 +23,19 @@ export default function SideBar() {
 
     const items = [
         {
-            path: "/home/main",
+            path: "/home/gallery",
             Name: "Home",
-            icon: <FontAwesomeIcon icon="fa-solid fa-house" className="text-[24px]"/>,
+            icon: <FontAwesomeIcon icon="fa-solid fa-house" className="barIcon"/>,
         },
         {
             path: "/home/upload",
             Name: "Upload",
-            icon: <FontAwesomeIcon icon="fa-solid fa-upload" className="text-[24px]"/>,
+            icon: <FontAwesomeIcon icon="fa-solid fa-upload" className="barIcon"/>,
+        },
+        {
+            path: "/home/gallery",
+            Name: "Gallery",
+            icon: <FontAwesomeIcon icon="fa-solid fa-images" className="barIcon"/>
         },
     ]
 
