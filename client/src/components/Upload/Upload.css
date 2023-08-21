@@ -1,0 +1,40 @@
+
+
+.Upload{
+    @apply w-full h-full font-lato bg-slate-50;
+
+    & >.UploadInner{
+        @apply max-w-[70%] mx-auto  w-full h-full;
+
+        .banner{
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            img{
+                @apply max-w-[500px] max-h-[500px] rounded-md aspect-[1] object-cover;
+            }
+        }
+        
+        .UploadMain{
+            @apply w-full max-w-[400px] flex flex-col gap-8;
+            .title {
+                @apply font-bold text-black text-[36px];
+
+            }
+
+            .uploadForm{
+                @apply flex flex-col gap-3;
+                .item{
+                    @apply flex flex-col gap-2;
+
+                    .input-text{
+                        @apply border-2 border-[#929AAB] focus:outline-none p-2 rounded-lg text-[16px];
+                    }
+                }
+            }
+        }
+    }
+}
+.dropZone{
+    border-radius: 8px !important;
+    border: 2px solid #929AAB !important;
+    padding: 30px 12px !important;
+}

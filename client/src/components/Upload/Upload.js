@@ -1,10 +1,16 @@
 import * as React from 'react'  
+import './Upload.css'
+
 import axios from 'axios'
 import { UserContext } from '../../context/UserContext.jsx';
 import {useNavigate } from 'react-router-dom'
 
+import { FileUploader } from "react-drag-drop-files";
+import UploadBanner from '../../img/Upload/UploadImage.jpg'
+
 export default function Upload(){
     const navigate = useNavigate()
+
     React.useEffect(() => {
       axios.get('/api/login').then((response) => {
         if(response.data.loggedIn == false){
@@ -12,18 +18,22 @@ export default function Upload(){
         } 
       })
     }, [])
+    const fileTypes = ["JPG", "PNG"]
     const [file, setFile] = React.useState()
-    const {userName,setUserName} = React.useContext(UserContext)
+    const [fileName, setFileName] = React.useState()
+    const handleFileSelected = (file) => {
+        setFile(file)
+    }
 
-    const handleFileSelected = (event) => {
-        setFile(event.target.files[0])
+    const handleName = (event) => {
+      setFileName(event.target.value)
     }
 
     const uploadHandler = (event) => {
         event.preventDefault()
         const formData = new FormData()
         formData.append("file", file)
-        formData.append("userName", userName)
+        formData.append("fileName", fileName)
         axios.post("/api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -39,17 +49,35 @@ export default function Upload(){
 
     return(
         <>
-            <div>
-                <h1>Upload your image here</h1>
-                <form medthod="POST">
-                    <input type="file" name="image" id="image" onChange={handleFileSelected}/>
-                    <button onClick={uploadHandler}
-                    className="bg-gray-800 w-1/5 text-white">
-                        Upload
-                    </button>
-                </form>
-                
-            </div>
+          <div className="Upload">
+              <div className="UploadInner flex gap-12 items-center justify-center">
+                <div className="banner">
+                  <img src={UploadBanner} alt="" />
+                </div>
+
+                <div className="UploadMain">
+                  <div className="title">Upload</div>
+                  <form className="uploadForm">
+                      <div className="item">
+                        <label htmlFor="name">Tên file</label>
+                        <input className="input-text" type="text" name="name" id="name" placeholder="Nhập tên file" onChange={handleName}/>
+                      </div>
+
+                      <div className="item">
+                        <label htmlFor="image">Chọn file</label>
+                        <FileUploader classes="dropZone"
+                        dropMessageStyle={{backgroundColor:'#393E46', color:'white', opacity:'100%'}}
+                        hoverTitle="Drop Here" handleChange={handleFileSelected} name="file" types={fileTypes}/>
+                      </div>
+                  </form>
+
+                  <button onClick={uploadHandler}
+                      className="bg-gray-800  text-[18 px] w-full px-8 py-3 rounded-lg text-white">
+                          UPLOAD
+                      </button>
+                </div>
+              </div>
+          </div>
         </>
     )
 }
