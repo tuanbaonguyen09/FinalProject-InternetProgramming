@@ -23,20 +23,28 @@ export default function Login(){
 
     axios.defaults.withCredentials = true;
 
+    const configuration = {
+        method: "post",
+        url: "/api/login",
+        data: {
+            email : email,
+            password: password,
+          },
+    }
+    
+    React.useEffect(() => {
+        axios.get('/api/login').then((response) => {
+            if(response.data.loggedIn == false){
+              navigate('/login')
+            } 
+          })
+    }, []);
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
         if(emailErr || passwordErr){
             alert("Vui lòng nhập đúng thông tin đăng nhập")
             return
-        }
-        const configuration = {
-            method: "post",
-            url: "/api/login",
-            data: {
-                email : email,
-                password: password,
-              },
         }
         axios(configuration).then(response => {
             if(response.data.message){

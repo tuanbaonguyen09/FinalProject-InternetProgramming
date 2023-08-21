@@ -85,7 +85,9 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/upload',upload.single('file'), (req, res) => {
   const imgBuffer = req.file.buffer.toString('base64')
-  const name = req.session.user[0].email.split('@')[0];
+  const name = req.session.user[0].email.split('@')[0]
+  const fileName = req.body.fileName
+  console.log(fileName)
   const sql = `INSERT INTO ${name} VALUES(NULL,?,CURDATE(),?)`;
   con.query(sql, [req.file.originalname,imgBuffer], (err,result) => {
     if(err) throw err
@@ -110,5 +112,16 @@ app.get('/api/login', (req, res) => {
     res.json({loggedIn: true, user: req.session.user})
   }else {
     res.json({loggedIn: false})
+  }
+})
+
+app.post('/api/logout', (req, res) => {
+  if(req.session.user){
+    req.session.destroy((err) =>{
+      if(err) throw err;
+      res.json({message: "Đăng xuất thành công"})
+    })
+  }else {
+    res.json({message: "Lỗi đăng xuất"})
   }
 })
