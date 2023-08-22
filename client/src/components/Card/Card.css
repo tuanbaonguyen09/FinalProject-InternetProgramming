@@ -1,0 +1,25 @@
+.Card{
+    @apply  w-fit h-fit self-center rounded-xl;
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    & > .CardInner{
+        @apply  w-fit p-4 rounded-lg flex flex-col gap-2.5;
+        .imgContainer{
+            @apply w-[220px] h-[150px];
+            img{
+                @apply rounded-md w-full h-full object-cover ;
+            }
+        }
+        .Infor{
+            @apply flex flex-col gap-1 text-white;
+
+            .sub-item{
+                @apply flex gap-1 items-center;
+            }
+        }
+        .checkBtn{
+            @apply hover:opacity-50
+             bg-[white] text-[14px] py-1 rounded text-[#393E46];
+        }
+    }
+}

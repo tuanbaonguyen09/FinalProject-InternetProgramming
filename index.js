@@ -7,7 +7,6 @@ const multer = require('multer')
 const app = express()
 require("dotenv").config();
 
-
 app.use(cookieParser())
 app.use(
   session({
@@ -16,7 +15,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 24,
+      expires: 60 * 60 * 60 * 60,
     },
   })
 );
@@ -86,10 +85,9 @@ app.post('/api/login', (req, res) => {
 app.post('/api/upload',upload.single('file'), (req, res) => {
   const imgBuffer = req.file.buffer.toString('base64')
   const name = req.session.user[0].email.split('@')[0]
-  const fileName = req.body.fileName
-  console.log(fileName)
+  const fileName = req.body.inputName.length > 0 ? req.body.inputName : req.file.originalname
   const sql = `INSERT INTO ${name} VALUES(NULL,?,CURDATE(),?)`;
-  con.query(sql, [req.file.originalname,imgBuffer], (err,result) => {
+  con.query(sql, [fileName ,imgBuffer], (err,result) => {
     if(err) throw err
     res.json({message:"Upload thành công !"})
   })

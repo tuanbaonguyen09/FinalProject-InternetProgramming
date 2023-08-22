@@ -21,8 +21,6 @@ export default function Login(){
     const [password, setPassword] = React.useState()
     const [passwordErr, setPasswordErr] = React.useState(true)
 
-    axios.defaults.withCredentials = true;
-
     const configuration = {
         method: "post",
         url: "/api/login",

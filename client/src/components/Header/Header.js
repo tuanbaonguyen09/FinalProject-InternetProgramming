@@ -28,7 +28,7 @@ export default function Header(props) {
     return ( 
         <header className="Header">
             <div className="HeaderInner">
-                <div className="Title text-heading">
+                <div className="Title text-[28px]">
                     Project Internet Programming  
                 </div>
                 <div className="flex gap-4 ">

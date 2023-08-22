@@ -5,9 +5,7 @@
     @apply bg-slate-100 font-lato relative ;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
     & > .HeaderInner{
-        @apply flex justify-between items-center px-6 py-4 border-b border-[#F9F9F9];
-
-
+        @apply flex justify-between items-center px-6 py-3 border-b border-[#F9F9F9];
     }
     .dropDown{
         @apply rounded-lg right-6 -bottom-40 bg-[#EEEEEE] p-4 absolute z-20;
@@ -50,5 +48,5 @@
         
     }
     .dropDown.disabled{
-        @apply opacity-0;}
+        @apply hidden ;}
 }

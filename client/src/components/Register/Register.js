@@ -6,6 +6,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RegisterBanner from '../../img/Login & Register/RegisterBanner.jpg'
 
+import { NavLink } from 'react-router-dom';
+
 export default function Register() {
     const navigate = useNavigate()
 
@@ -84,7 +86,7 @@ export default function Register() {
                         <div className="item">  
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-key" />
                             <input type="password" name="password" id="password" placeholder="Your Password"  onChange={handlePasswordChange}/>
-                            <div className="validation" id="password_validation">{passwordErr ? "Vui lòng nhập mật khẩu hợp lệ":""}</div>
+                            <div className="validation" id="password_validation">{passwordErr ? "Vui lòng nhập mật khẩu hợp lệ (<5 ký tự)":""}</div>
                         </div>
                         <div className="item">
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-arrows-rotate" />
@@ -94,6 +96,10 @@ export default function Register() {
                         <button className="RegisterButton" onClick={handleFormSubmit}>
                             Đăng Ký
                         </button>
+                        <div className="flex gap-2 items-center text-[14px]">
+                            <div className="opacity-40">Đã có tài khoản ?</div>
+                            <NavLink to="/login">Đăng nhập</NavLink>
+                        </div>
                     </form>
                 
                 </div>

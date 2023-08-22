@@ -2,11 +2,11 @@ import * as React from 'react'
 import './Upload.css'
 
 import axios from 'axios'
-import { UserContext } from '../../context/UserContext.jsx';
 import {useNavigate } from 'react-router-dom'
 
 import { FileUploader } from "react-drag-drop-files";
 import UploadBanner from '../../img/Upload/UploadImage.jpg'
+
 
 export default function Upload(){
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ export default function Upload(){
         event.preventDefault()
         const formData = new FormData()
         formData.append("file", file)
-        formData.append("fileName", fileName)
+        formData.append("inputName", fileName)
         axios.post("/api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",

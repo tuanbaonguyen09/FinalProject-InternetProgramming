@@ -8,11 +8,7 @@ import "../scss/index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
-
-            <React.StrictMode>
-                  <UserProvider>
-                        <App/>
-                  </UserProvider>
-            </React.StrictMode>
-
+      <UserProvider>
+            <App/>
+      </UserProvider>
 );
