@@ -83,7 +83,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: "http://localhost:5000",
+        target: "https://api-2012667.onrender.com/",
         secure: false,
         changeOrigin: true,
       },

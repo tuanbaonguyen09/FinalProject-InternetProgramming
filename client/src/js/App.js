@@ -30,12 +30,12 @@ const App = () => {
       <Routes>
         <Route path="/"  element={isLogin ? <Navigate to="home"/> : <Navigate to="/login"/>}
           />
-          <Route path="home" Component={Home}>
+          {/* <Route path="home" Component={Home}>
             <Route path='upload' Component={Upload} />
             <Route path='gallery' Component={Gallery} />
-          </Route>
+          </Route> */}
           <Route path="login" Component={Login}/>
-          <Route path="register" Component={Register}/>
+          {/* <Route path="register" Component={Register}/> */}
       </Routes>
     </Router>
 
