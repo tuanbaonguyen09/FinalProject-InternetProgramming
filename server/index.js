@@ -4,8 +4,8 @@ const connectDB = require('./connectDB')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require("cors")
-const errorHandler = require("./middlewares/error");
-
+const errorHandler = require("./middlewares/error")
+const userRoutes = require("./routes/users")
 
 // Connect to DB
 connectDB();
@@ -18,6 +18,10 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors());
 app.use(express.json());
+
+// Routes
+app.use("/api/users", userRoutes);
+
 
 
 app.use("/", (req, res) => {
