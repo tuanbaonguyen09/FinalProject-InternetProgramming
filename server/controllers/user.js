@@ -1,23 +1,17 @@
 const User = require("../models/User");
 
-const createUser = async (req, res, next) => {
+const register = async (req, res) =>{
   try {
-    const { name, email } = req.body;
-    if (!name || !email) {
-      res.status(400);
-      return next(new Error("name & email fields are required"));
-    }
-
+    const { email, password } = req.body;
     // check if user already exists
     const isUserExists = await User.findOne({ email });
 
     if (isUserExists) {
-      res.status(404);
-      return next(new Error("User already exists"));
+      res.status(404).json({message:'Tài khoản đã tồn tại'})
     }
 
     const user = await User.create({
-      name, email
+      email, password
     });
 
     res.status(200).json({
@@ -30,96 +24,7 @@ const createUser = async (req, res, next) => {
   }
 }
 
-const getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find();
-
-    res.status(200).json({
-      success: true,
-      users,
-    });
-  } catch (error) {
-    console.log(error);
-    return next(error);
-  }
-};
-
-const getUser = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findById(id);
-
-    if (!user) {
-      res.status(404);
-      return next(new Error("User not found"));
-    }
-
-    res.status(200).json({
-      success: true,
-      user,
-    });
-  } catch (error) {
-    console.log(error);
-    return next(error);
-  }
-};
-
-const updateUser = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findById(id);
-
-    if (!user) {
-      res.status(404);
-      return next(new Error("User not found"));
-    }
-
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      {
-        $set: req.body,
-      },
-      {
-        new: true,
-      }
-    );
-
-    res.status(200).json({
-      success: true,
-      updatedUser,
-    });
-  } catch (error) {
-    console.log(error);
-    return next(error);
-  }
-};
-
-const deleteUser = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findById(id);
-
-    if (!user) {
-      res.status(404);
-      return next(new Error("User not found"));
-    }
-
-    await User.findByIdAndDelete(id);
-
-    res.status(200).json({
-      success: true,
-      message: "User has been deleted.",
-    });
-  } catch (error) {
-    console.log(error);
-    return next(error);
-  }
-};
-
 module.exports = {
-  getUser,
-  getUsers,
   createUser,
-  updateUser,
-  deleteUser,
+  register,
 };
