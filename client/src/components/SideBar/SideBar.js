@@ -7,7 +7,7 @@ import {NavLink} from 'react-router-dom'
 
 //font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import MainIcon from '/img'
+import MainIcon from '../../img/Sidebar/MainIcon.svg'
 
 //State Handler
 

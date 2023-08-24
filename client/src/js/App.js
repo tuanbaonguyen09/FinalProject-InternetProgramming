@@ -28,12 +28,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/"  element={<Login/>}
+        <Route path="/"  Component={isLogin ? Home : Login}
           />
-          {/* <Route path="home" Component={Home}>
-            <Route path='upload' Component={Upload} />
-            <Route path='gallery' Component={Gallery} />
-          </Route> */}
+          <Route path="home" Component={Home}>
+            {/* <Route path='upload' Component={Upload} />
+            <Route path='gallery' Component={Gallery} /> */}
+          </Route>
           <Route path="login" Component={Login}/>
           <Route path="register" Component={Register}/>
       </Routes>

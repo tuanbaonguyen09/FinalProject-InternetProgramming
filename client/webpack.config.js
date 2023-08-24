@@ -36,6 +36,17 @@ module.exports = {
         },
       },
       {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
+      {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
@@ -83,7 +94,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: "https://api-2012667.onrender.com/",
+        target: "http://localhost:5000",
         secure: false,
         changeOrigin: true,
       },

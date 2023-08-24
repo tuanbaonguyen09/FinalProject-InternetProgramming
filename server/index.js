@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const cors = require("cors")
 const errorHandler = require("./middlewares/error")
 const userRoutes = require("./routes/users")
+const session = require('express-session')
+
 
 // Connect to DB
 connectDB();
@@ -18,11 +20,20 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors());
 app.use(express.json());
+app.use(
+  session({
+    key: "userId",
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 60 * 60,
+    },
+  })
+);
 
 // Routes
 app.use("/api/users", userRoutes);
-
-
 
 app.use("/", (req, res) => {
     return res.json({

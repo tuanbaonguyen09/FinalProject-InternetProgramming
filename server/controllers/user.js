@@ -4,7 +4,7 @@ const register = async (req, res, next) =>{
   try {
     const { email, password } = req.body;
     // check if user already exists
-    const isUserExists = await User.findOne({ email });
+    const isUserExists = await User.findOne({ email })
 
     if (isUserExists) {
       res.status(400).json({message:'Tài khoản đã tồn tại'})
@@ -27,26 +27,20 @@ const register = async (req, res, next) =>{
 
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const {email, password } = req.body;
 
-    User.findOne({ email }, (err, result) => {
-      if (err) {
-        console.error('Error querying MongoDB:', err);
-        res.status(500).json({ message: 'Internal server error' })
-        return;
+    const user = await User.findOne({ email })
+
+    if(user){
+      if(user.password === password){
+        req.session.user = user;
+        res.status(200).send(user);
+      }else {
+        res.json({ message: 'Sai mật khẩu' })
       }
-      
-      if (result) {
-        if (password === result.password) {
-          req.session.user = result;
-          res.status(200).send(result);
-        } else {
-          res.json({ message: 'Sai mật khẩu' })
-        }
-      } else {
-        res.json({ message: 'Tài khoản không tồn tại' })
-      }
-    })
+    }else {
+      res.json({ message: 'Tài khoản không tồn tại' })
+    }
 
   }catch (error) {
     console.log(error);
@@ -54,9 +48,42 @@ const login = async (req, res, next) => {
   }
 }
 
+const loginCheck = (req, res, next) => {
+  try {
+    if(req.session.user){
+      res.json({loggedIn: true, user: req.session.user})
+    }else {
+      res.json({loggedIn: false})
+    }
+
+  }catch (error) {
+    console.log(error);
+    return next(error);
+  }
+}
+
+const logOut =  (req, res, next) => {
+  try{
+    if(req.session.user){
+      req.session.destroy((err) =>{
+        if(err) throw err;
+        res.json({message: "Đăng xuất thành công"})
+      })
+    }else {
+      res.json({message: "Lỗi đăng xuất"})
+    }
+  }catch (error) {
+    console.log(error);
+    return next(error);
+  }
+  
+}
+
 
 
 module.exports = {
   register,
   login,
+  loginCheck,
+  logOut,
 };

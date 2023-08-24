@@ -4,19 +4,28 @@ import './Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 export default function Header(props) {
-    const user = props.user[0]
-    const checkLogOut = props.handleLogout
+    const [user, setUser] = React.useState({})
     const [dropDown, setDropdown] = React.useState(false)
 
-    const configuration = {
-        method: "post",
-        url: "/api/logout",
+    const Login_configuration = {
+        method: "get",
+        url: "/api/users/login",
     }
-    
+    const Logout_configuration = {
+        method: "post",
+        url: "/api/users/logout",
+    }
+
+    React.useEffect(() => {
+    axios(Login_configuration).then(response => {
+        setUser(response.data.user)
+    }).catch(error => console.log(error))
+    }, []);
+
     const handleLogout = () => {
-        axios(configuration).then(response => {
+        axios(Logout_configuration).then(response => {
             alert(response.data.message)
-            checkLogOut(true)
+            props.checkLogOut(true)
         }).catch(error => console.log(error))
     }
 

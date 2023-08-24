@@ -23,7 +23,7 @@ export default function Login(){
 
     const configuration = {
         method: "post",
-        url: "/api/login",
+        url: "/api/users/login",
         data: {
             email : email,
             password: password,
@@ -31,7 +31,7 @@ export default function Login(){
     }
     
     React.useEffect(() => {
-        axios.get('/api/login').then((response) => {
+        axios.get('/api/users/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 

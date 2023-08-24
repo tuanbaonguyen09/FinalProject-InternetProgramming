@@ -8,36 +8,27 @@ import axios from 'axios'
 import {Outlet, useNavigate} from "react-router-dom";
 export default function Home(){
   const navigate = useNavigate()
-  const [user, setUser] = React.useState()
-  const [logOut,checkLogOut] = React.useState(false)
-
-  async function getUser() {
-    let output = await axios.get('/api/login').then((response) => {
+  const [user, setUser] = React.useState({})
+  const [logOut, setLogOut] = React.useState()
+  React.useEffect(() => {
+    axios.get('/api/users/login').then((response) => {
         if(response.data.loggedIn == false){
           navigate('/login')
-        } else{
-          return response.data.user
-        }
+        } 
       })
-      return setUser(output)
-  }
+  }, [logOut]);
 
-  React.useEffect(() => {
-    getUser()
-  }, [logOut])
 
   return(
-    user && (
      <div className="Home">
       <div className="HomeInner">
         <SideBar/>
         <div className="Content">
-          <Header user={user} handleLogout={checkLogOut}/>
+          <Header checkLogOut={setLogOut}/>
             <Outlet/>
         </div>
       </div>
     </div> 
-    )
   )
 }
 
