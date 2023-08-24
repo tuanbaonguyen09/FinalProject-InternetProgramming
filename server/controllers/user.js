@@ -25,6 +25,5 @@ const register = async (req, res) =>{
 }
 
 module.exports = {
-  createUser,
   register,
 };
