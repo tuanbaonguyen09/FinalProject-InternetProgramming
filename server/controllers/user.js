@@ -7,7 +7,7 @@ const register = async (req, res, next) =>{
     const isUserExists = await User.findOne({ email });
 
     if (isUserExists) {
-      res.status(404).json({message:'Tài khoản đã tồn tại'})
+      res.status(400).json({message:'Tài khoản đã tồn tại'})
     }
 
     const user = await User.create({
@@ -25,6 +25,38 @@ const register = async (req, res, next) =>{
   }
 }
 
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    User.findOne({ email }, (err, result) => {
+      if (err) {
+        console.error('Error querying MongoDB:', err);
+        res.status(500).json({ message: 'Internal server error' })
+        return;
+      }
+      
+      if (result) {
+        if (password === result.password) {
+          req.session.user = result;
+          res.status(200).send(result);
+        } else {
+          res.json({ message: 'Sai mật khẩu' })
+        }
+      } else {
+        res.json({ message: 'Tài khoản không tồn tại' })
+      }
+    })
+
+  }catch (error) {
+    console.log(error);
+    return next(error);
+  }
+}
+
+
+
 module.exports = {
   register,
+  login,
 };
