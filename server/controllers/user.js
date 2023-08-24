@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-const register = async (req, res) =>{
+const register = async (req, res, next) =>{
   try {
     const { email, password } = req.body;
     // check if user already exists
