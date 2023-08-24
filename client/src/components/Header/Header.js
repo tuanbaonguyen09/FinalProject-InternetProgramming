@@ -9,11 +9,11 @@ export default function Header(props) {
 
     const Login_configuration = {
         method: "get",
-        url: "/api/users/login",
+        url: "https://api-2012667.onrender.com/api/users/login",
     }
     const Logout_configuration = {
         method: "post",
-        url: "/api/users/logout",
+        url: "https://api-2012667.onrender.com/api/users/logout",
     }
 
     React.useEffect(() => {

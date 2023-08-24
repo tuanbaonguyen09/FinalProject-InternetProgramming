@@ -10,8 +10,9 @@ export default function Home(){
   const navigate = useNavigate()
   const [user, setUser] = React.useState({})
   const [logOut, setLogOut] = React.useState()
+  
   React.useEffect(() => {
-    axios.get('/api/users/login').then((response) => {
+    axios.get('https://api-2012667.onrender.com/api/users/login').then((response) => {
         if(response.data.loggedIn == false){
           navigate('/login')
         } 

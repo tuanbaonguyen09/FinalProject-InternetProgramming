@@ -92,11 +92,10 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: "./build",
     proxy: {
       '/api': {
-        target: "https://api-2012667.onrender.com",
-        // target: "http://localhost:5000",
+        // target: "https://api-2012667.onrender.com/",
+        target: "http://localhost:5000",
         secure: false,
         changeOrigin: true,
       },

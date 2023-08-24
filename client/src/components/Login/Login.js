@@ -23,7 +23,7 @@ export default function Login(){
 
     const configuration = {
         method: "post",
-        url: "/api/users/login",
+        url: "https://api-2012667.onrender.com/api/users/login",
         data: {
             email : email,
             password: password,
@@ -31,7 +31,7 @@ export default function Login(){
     }
     
     React.useEffect(() => {
-        axios.get('/api/users/login').then((response) => {
+        axios.get('https://api-2012667.onrender.com/api/users/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 
