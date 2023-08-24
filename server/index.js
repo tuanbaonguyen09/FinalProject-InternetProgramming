@@ -1,7 +1,11 @@
 const express = require('express')
 require('dotenv').config()
-app.use(express.json())
-const connectDB = require('./connectMongo')
+const connectDB = require('./connectDB')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const cors = require("cors")
+const errorHandler = require("./middlewares/error");
+
 
 // Connect to DB
 connectDB();
@@ -15,9 +19,6 @@ app.use(cookieParser())
 app.use(cors());
 app.use(express.json());
 
-app.listen(5000, () => {
-    console.log('App listening on port 5000')
- })
 
 app.use("/", (req, res) => {
     return res.json({
