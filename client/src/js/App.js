@@ -28,7 +28,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/"  element={isLogin ? <Navigate to="home"/> : <Navigate to="/login"/>}
+        <Route path="/"  element={<Login/>}
           />
           {/* <Route path="home" Component={Home}>
             <Route path='upload' Component={Upload} />
