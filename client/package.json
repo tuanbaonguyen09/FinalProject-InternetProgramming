@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "proxy": {
-    "/*": {
-      "target": "https://api-2012667.onrender.com/"
-    }
-  },
+  "proxy": "https://api-2012667.onrender.com/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --open --hot ",
