@@ -28,7 +28,7 @@ export default function Register() {
         }
         const configuration = {
             method: "post",
-            url: "/api/register",
+            url: "https://api-2012667.onrender.com/api/users/register",
             data: {
               email : email,
               password: password,

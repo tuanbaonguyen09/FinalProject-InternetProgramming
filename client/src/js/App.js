@@ -35,7 +35,7 @@ const App = () => {
             <Route path='gallery' Component={Gallery} />
           </Route> */}
           <Route path="login" Component={Login}/>
-          {/* <Route path="register" Component={Register}/> */}
+          <Route path="register" Component={Register}/>
       </Routes>
     </Router>
 

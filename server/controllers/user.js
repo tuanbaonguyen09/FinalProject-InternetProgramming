@@ -15,6 +15,7 @@ const register = async (req, res) =>{
     });
 
     res.status(200).json({
+      message: 'Đăng ký tài khoản thành công !',
       success: true,
       user,
     });
