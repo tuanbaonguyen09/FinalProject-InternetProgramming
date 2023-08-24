@@ -7,7 +7,7 @@ const register = async (req, res, next) =>{
     const isUserExists = await User.findOne({ email });
 
     if (isUserExists) {
-      res.json({message:'Tài khoản đã tồn tại'})
+      res.status(404).json({message:'Tài khoản đã tồn tại'})
     }
 
     const user = await User.create({
