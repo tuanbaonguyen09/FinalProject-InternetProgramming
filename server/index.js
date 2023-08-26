@@ -140,3 +140,12 @@ app.post('/api/logout', (req, res) => {
     res.json({message: "Lỗi đăng xuất"})
   }
 })
+
+app.post('/api/deleteIMG' ,(req, res) => {
+  const name = req.session.user[0].email.split('@')[0];
+  const sql = `DELETE FROM ${name} WHERE id=${req.body.id}`
+  con.query(sql, (err,result) => {
+    if(err) throw err
+    res.json({message:"Xoá hình ảnh thành công"})
+  })
+})

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom';
 
+import { NavLink } from 'react-router-dom';
+
 axios.defaults.withCredentials = true;
 
 
@@ -58,12 +60,12 @@ export default function Header(props) {
                         </div>
                     </div>
                     <div className="list">
-                        <div className='item'>
+                        <NavLink to="/home/creator" className='item' >
                             <FontAwesomeIcon icon="fa-solid fa-address-card" className="icon"/>
                             <div className="text">
-                                Thông tin tài khoản
+                                Thông tin
                             </div>
-                        </div>
+                        </NavLink>
                         <button onClick={handleLogout} className='item'>
                             <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" className="icon"/>
                             <div className="text">
