@@ -8,6 +8,8 @@ import { UserContext } from '../../context/UserContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginBanner from '../../img/Login & Register/LoginBanner.jpg'
 
+axios.defaults.withCredentials = true;
+
 
 
 export default function Login(){
@@ -23,7 +25,7 @@ export default function Login(){
 
     const configuration = {
         method: "post",
-        url: "/api/login",
+        url: "http://localhost:5000/api/login",
         data: {
             email : email,
             password: password,
@@ -31,7 +33,7 @@ export default function Login(){
     }
     
     React.useEffect(() => {
-        axios.get('/api/login').then((response) => {
+        axios.get('http://localhost:5000/api/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 

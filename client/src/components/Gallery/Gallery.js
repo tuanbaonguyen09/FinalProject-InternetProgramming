@@ -6,6 +6,8 @@ import Card from '../Card/Card';
 import ReactPaginate from 'react-paginate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+axios.defaults.withCredentials = true;
+
 
 export default function Gallery() {
     const navigate = useNavigate()
@@ -22,10 +24,10 @@ export default function Gallery() {
 
     const configuration = {
         method: "post",
-        url: "/api/gallery",
+        url: "http://localhost:5000/api/gallery",
     }
     React.useEffect(() => {
-        axios.get('/api/login').then((response) => {
+        axios.get('http://localhost:5000/api/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 

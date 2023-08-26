@@ -3,8 +3,6 @@ import './Card.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-axios.defaults.withCredentials = false;
-
 export default function Card(props) {
     const imageName = props.item.name
     const imageBuffer = props.item.imgBuffer
@@ -15,6 +13,7 @@ export default function Card(props) {
     const configuration = {
         method: "post",
         url: "https://detect.roboflow.com/bkcbscountingsdataset/3",
+        withCredentials: false,
         params: {
             api_key: "CJAwJ4fjzKXsuYskTEf1"
         },

@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RegisterBanner from '../../img/Login & Register/RegisterBanner.jpg'
 
 import { NavLink } from 'react-router-dom';
+axios.defaults.withCredentials = true;
+
 
 export default function Register() {
     const navigate = useNavigate()
@@ -28,7 +30,7 @@ export default function Register() {
         }
         const configuration = {
             method: "post",
-            url: "/api/register",
+            url: "http://localhost:5000/api/register",
             data: {
               email : email,
               password: password,

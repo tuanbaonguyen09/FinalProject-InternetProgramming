@@ -4,6 +4,8 @@ import './Home.css'
 import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
 import axios from 'axios'
+axios.defaults.withCredentials = true;
+
 //React route
 import {Outlet, useNavigate} from "react-router-dom";
 export default function Home(){
@@ -12,7 +14,7 @@ export default function Home(){
   const [logOut,checkLogOut] = React.useState(false)
 
   async function getUser() {
-    let output = await axios.get('/api/login').then((response) => {
+    let output = await axios.get('http://localhost:5000/api/login').then((response) => {
         if(response.data.loggedIn == false){
           navigate('/login')
         } else{

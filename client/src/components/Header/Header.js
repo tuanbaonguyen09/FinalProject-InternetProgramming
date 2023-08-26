@@ -3,6 +3,10 @@ import './Header.css'
 //font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
+
+axios.defaults.withCredentials = true;
+
+
 export default function Header(props) {
     const user = props.user[0]
     const checkLogOut = props.handleLogout
@@ -10,7 +14,7 @@ export default function Header(props) {
 
     const configuration = {
         method: "post",
-        url: "/api/logout",
+        url: "http://localhost:5000/api/logout",
     }
     
     const handleLogout = () => {

@@ -6,6 +6,16 @@ const bodyParser = require('body-parser');
 const multer = require('multer')
 const app = express()
 require("dotenv").config();
+const PORT = 5000;
+const HOST = '0.0.0.0';
+const cors = require('cors');
+
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:8080'
+}));
+
+
 
 app.use(cookieParser())
 app.use(
@@ -15,16 +25,17 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 60 * 60,
+      expires: false,
     },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-app.listen(5000, () => {
+app.listen(PORT, HOST, () => {
    console.log('App listening on port 5000')
 })
+
 
 app.get('/', function (req, res) {
   res.send("Hello from server !")
@@ -34,12 +45,18 @@ var con = mysql.createConnection({
    host: process.env.DB_HOST,
    user: process.env.DB_USER,
    password: process.env.DB_PASS,
-   database:  process.env.MYSQL_DB
+   database: process.env.MYSQL_DB,
+   port: process.env.DB_PORT
 });
 
 con.connect(function(err){
-  (err) ? console.log(err) : console.log(con);
-});
+    if (err) throw err;
+  console.log("My SQL Connected!");
+  let sql = "CREATE TABLE IF NOT EXISTS accounts (id INT(1) PRIMARY KEY AUTO_INCREMENT, email TEXT,password TEXT)"
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+  })
+})
 
 const upload = multer({storage:multer.memoryStorage()})
 

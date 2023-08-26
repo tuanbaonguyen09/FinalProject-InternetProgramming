@@ -6,13 +6,15 @@ import {useNavigate } from 'react-router-dom'
 
 import { FileUploader } from "react-drag-drop-files";
 import UploadBanner from '../../img/Upload/UploadImage.jpg'
+axios.defaults.withCredentials = true;
+
 
 
 export default function Upload(){
     const navigate = useNavigate()
 
     React.useEffect(() => {
-      axios.get('/api/login').then((response) => {
+      axios.get('http://localhost:5000/api/login').then((response) => {
         if(response.data.loggedIn == false){
           navigate('/login')
         } 
@@ -34,7 +36,7 @@ export default function Upload(){
         const formData = new FormData()
         formData.append("file", file)
         formData.append("inputName", fileName)
-        axios.post("/api/upload", formData, {
+        axios.post("http://localhost:5000/api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

@@ -29,6 +29,10 @@ module.exports = {
   module: {
     rules: [
       {
+				test: /\.svg$/i,
+				use: ['raw-loader']
+			},
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -80,14 +84,17 @@ module.exports = {
     ],
   },
   devServer: {
+    host: '0.0.0.0',
     historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: "http://localhost:5000",
-        secure: false,
-        changeOrigin: true,
-      },
-    },
+    port: 8080,
+    // proxy: {
+    //   '/api': {
+    //     target: "http://localhost:5000/",
+    //     secure: false,
+    //     changeOrigin: true,
+    //     ignorepath: true,
+    //   },
+    // },
   },
   plugins: [
     new webpack.BannerPlugin('Name: FinalProject ; Version-Deployment : v1.0; Version-Test: v1.0'),
