@@ -3,11 +3,16 @@ import './Header.css'
 //font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 
 
 export default function Header(props) {
+    const location = useLocation()
+
+    let FirstTitle = location.pathname.slice(6,).toUpperCase()
+    
     const user = props.user[0]
     const checkLogOut = props.handleLogout
     const [dropDown, setDropdown] = React.useState(false)
@@ -32,12 +37,13 @@ export default function Header(props) {
     return ( 
         <header className="Header">
             <div className="HeaderInner">
-                <div className="Title text-[28px]">
-                    Project Internet Programming  
+                <div className="Title text-[#0C356A] font-bold text-[32px]">
+                    {FirstTitle}
+
                 </div>
-                <div className="flex gap-4 ">
+                <div className="flex gap-2">
                     Xin chào
-                    <button onClick={handleDropDown}><FontAwesomeIcon icon="fa-solid fa-chevron-down"/></button>
+                    <button className={dropDown ? 'dropDownButton enabled' : 'dropDownButton disabled'} onClick={handleDropDown}><FontAwesomeIcon icon="fa-solid fa-chevron-down"/></button>
                 </div>
                 
             </div>

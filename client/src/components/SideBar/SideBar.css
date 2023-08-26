@@ -1,17 +1,17 @@
 
 
 .SideBar{
-    @apply w-full text-font-sideBar;
+    @apply w-full text-font-sideBar h-full;
     transition: all 0.3s ease;
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
-    max-width: 16%;
+    max-width: 14%;
     z-index: 2;
-    box-shadow: #b8c6db 0px 1px 4px, #b8c6db 0px 0px 0px 3px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     & > .SideBarInner{
         @apply w-full h-full;
 
         & >.MainIcon{
-            @apply min-h-[67px] px-[22px] py-[22px];
+            @apply max-w-[67px] min-h-[67px] px-[18px] py-[18px];
         }
 
 
@@ -77,7 +77,7 @@
                 }
             }
             .item.active{
-                @apply bg-[#F7F7F7] text-[#393E46];
+                @apply bg-[#F7F7F7] text-[#0C356A];
             }
         }
     }
@@ -89,9 +89,6 @@
     max-width: 5%;
     transition: all 0.4s ease;
 
-    .MainIcon{
-        @apply w-full mx-auto py-[22px];
-    }
     .heading{
         @apply px-2 justify-center;
 

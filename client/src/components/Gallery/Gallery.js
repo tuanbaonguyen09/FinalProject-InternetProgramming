@@ -39,7 +39,6 @@ export default function Gallery() {
 
 
     React.useEffect(()=>{
-        jsonObject && console.log(jsonObject)
         jsonObject && setImageData(jsonObject.image)
         jsonObject && setPrediction(jsonObject.predictions)
         jsonObject && setTime(jsonObject.time)
@@ -80,7 +79,6 @@ export default function Gallery() {
         const handleItemClick = (item) => {
             setItemStatus(true)
             setCurrentItem(item)
-            console.log(item)
         }
         return (
             <>
@@ -99,11 +97,12 @@ export default function Gallery() {
                                         Thời gian detect: {time && time}
                                     </div>
                                     <div className="text-[24px]">Kết quả</div>
-                                    <div className="predictionList grid grid-cols-2 gap-x-4 gap-y-1">
+                                    <div className="text-[12px]">(Click vào đối tượng để xem thông tin chi tiết)</div>
+                                    <div className="predictionList px-3 py-1.5 grid grid-cols-2 gap-x-2 gap-y-1">
                                         {
                                             prediction.map((item,index)=>{
                                                 return (
-                                                    <button className="hover:opacity-40" onClick={() => handleItemClick(item)} key={index}>
+                                                    <button className="hover:opacity-40 max-w-[200px] text-left" onClick={() => handleItemClick(item)} key={index}>
                                                         {index} : {item.class}
                                                     </button>
                                                 )
@@ -157,18 +156,18 @@ export default function Gallery() {
 
         return (
             <>  
-            <div className="flex flex-col gap-12 justify-center items-center">
-                    <ul className="grid grid-cols-4 gap-x-4 gap-y-8">  
+            <div className="w-full flex flex-col justify-between">
+                    <ul className="grid grid-cols-5 gap-x-4 gap-y-8">  
                         <LoadingCards currentCards={currentCards}  />
                     </ul>
-                    <div className="Pagination">
+                    <div className="Pagination self-center">
                         <ReactPaginate 
                             breakLabel="..."
-                            nextLabel=">"
+                            nextLabel={<FontAwesomeIcon icon="fa-solid fa-chevron-right" />}
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={5}
                             pageCount={pageCount}
-                            previousLabel="<"
+                            previousLabel={<FontAwesomeIcon icon="fa-solid fa-chevron-left" />}
                             renderOnZeroPageCount={null}
                         />
                     </div>
@@ -183,11 +182,11 @@ export default function Gallery() {
 
     return (
         <>
-            <div className="Gallery w-full h-full p-6">
+            <div className="Gallery w-full h-full">
                 <Modal modalStatus={modalStatus}/>
                 <ItemInfor itemStatus={itemStatus} currItem={currentItem}/>
-                <div className="GalleryInner flex justify-center">
-                    <PaginatedCards cardPerPage={8} />                       
+                <div className="GalleryInner flex w-full p-4">
+                    <PaginatedCards cardPerPage={10} />                       
                 </div>
             </div>
         </>

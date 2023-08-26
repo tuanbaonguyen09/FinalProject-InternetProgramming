@@ -22,7 +22,7 @@ export default function Upload(){
     }, [])
     const fileTypes = ["JPG", "PNG"]
     const [file, setFile] = React.useState()
-    const [fileName, setFileName] = React.useState()
+    const [fileName, setFileName] = React.useState('')
     const handleFileSelected = (file) => {
         setFile(file)
     }
@@ -52,21 +52,22 @@ export default function Upload(){
     return(
         <>
           <div className="Upload">
-              <div className="UploadInner flex gap-12 items-center justify-center">
+              <div className="UploadInner flex gap-8 items-center justify-center">
                 <div className="banner">
                   <img src={UploadBanner} alt="" />
                 </div>
 
                 <div className="UploadMain">
-                  <div className="title">Upload</div>
+                  <div className="title">Upload hình ảnh tại đây</div>
+                  
                   <form className="uploadForm">
                       <div className="item">
-                        <label htmlFor="name">Tên file</label>
-                        <input className="input-text" type="text" name="name" id="name" placeholder="Nhập tên file" onChange={handleName}/>
+                        <label className="font-semibold text-[20px]" htmlFor="name">Tên file</label>
+                        <input className="input-text" value="" type="text" name="name" id="name" placeholder="Nhập tên file" onChange={handleName}/>
                       </div>
 
                       <div className="item">
-                        <label htmlFor="image">Chọn file</label>
+                        <label className="font-semibold text-[20px]" htmlFor="image">Chọn file</label>
                         <FileUploader classes="dropZone"
                         dropMessageStyle={{backgroundColor:'#393E46', color:'white', opacity:'100%'}}
                         hoverTitle="Drop Here" handleChange={handleFileSelected} name="file" types={fileTypes}/>
@@ -74,7 +75,8 @@ export default function Upload(){
                   </form>
 
                   <button onClick={uploadHandler}
-                      className="bg-gray-800  text-[18 px] w-full px-8 py-3 rounded-lg text-white">
+                      className=" hover:opacity-70
+                      bg-gray-800 text-[18 px] w-full px-8 py-5 rounded-lg text-white font-bold">
                           UPLOAD
                       </button>
                 </div>

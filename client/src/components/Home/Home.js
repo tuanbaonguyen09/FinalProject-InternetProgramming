@@ -35,7 +35,7 @@ export default function Home(){
         <SideBar/>
         <div className="Content">
           <Header user={user} handleLogout={checkLogOut}/>
-            <Outlet/>
+          <Outlet/>
         </div>
       </div>
     </div> 

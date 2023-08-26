@@ -51,7 +51,7 @@ export default function Card(props) {
                             {imageName}
                         </div>
                         <div className="sub-item">
-                            <p className="font-bold">Thời gian upload: </p>
+                            <p className="font-bold">Ngày up: </p>
                             {imageDate.slice(0,10)}
                         </div>
                     </div>
