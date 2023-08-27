@@ -2,15 +2,29 @@ import * as React from 'react'
 import './Card.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useNavigate } from 'react-router-dom';
+import { LoadingContext } from '../../context/LoadingContext.jsx';
+
 export default function Card(props) {
-    const navigate = useNavigate()
+    const {setIsLoading} = React.useContext(LoadingContext)
+
+    const [currentItem, setCurrentItem] = React.useState()
+    const [imagedata, setImageData] = React.useState()
+    const [prediction, setPrediction] = React.useState()
+    const [time, setTime] = React.useState()
+    const [modalStatus, setModalStatus] = React.useState(false)
+    const [itemStatus, setItemStatus] = React.useState(false)
+    const [userRequest, setUserRequest] = React.useState({
+        data: null,
+        check:false
+    })
+
+    const  {data, check} = userRequest;
+
     const imageName = props.item.name
     const imageBuffer = props.item.imgBuffer
     const imageDate = props.item.date
-    const setModalStatus = props.setModal
-    const setJsonObject = props.setJson
-    const [data,setData] = React.useState()
+
+    
     const configuration = {
         method: "post",
         url: "https://detect.roboflow.com/bkcbscountingsdataset/3",
@@ -33,8 +47,13 @@ export default function Card(props) {
 
 
     const sampleTestingHandler = () =>{
+        setIsLoading(true)
         axios(configuration).then((response)=>{
-            setData(response.data)
+            setIsLoading(false)
+            setUserRequest({
+                data: response.data,
+                check:true
+            })
             alert('Detect hình ảnh thành công !')
         }).catch((err) => {
             console.log(err.message)
@@ -42,6 +61,14 @@ export default function Card(props) {
 
     }
 
+
+
+    React.useEffect(()=>{
+        data && setImageData(data.image)
+        data && setPrediction(data.predictions)
+        data && setTime(data.time)
+    },[data])
+    
     const deleteHandler = () => {
         axios(DeleteConfiguration).then(response => {
             alert(response.data.message)
@@ -50,12 +77,90 @@ export default function Card(props) {
     }
 
 
-    React.useEffect(()=>{
-        data && setJsonObject(data)
-    },[data])
+
+    const ItemInfor = ({itemStatus, currItem}) => {
+        
+        return (
+            <>
+                {
+                    currItem && itemStatus && (
+                        <div className="Item relative">
+                            <div className="ItemInner flex flex-col gap-1 justify-center">
+                                <div className="text-[24px] font-bold text-center">Thông tin chi tiết</div>
+                                <div className="mt-6">
+                                    {
+                                        Object.keys(currItem).map((key,index) => {
+                                        return (
+                                            <div className="text-[18px]" key={index}>{`- ${key}: ${currItem[key]}`}</div>
+                                        )
+                                        })
+                                    }
+                                </div>
+ 
+                            </div>
+                            <button onClick={() => setItemStatus(false)}>
+                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
+                            </button>  
+                        </div>
+                    )
+                }
+            </>
+        )
+    }
+
+
+    const Modal = ({modalStatus}) => {
+        const handleItemClick = (item) => {
+            setItemStatus(true)
+            setCurrentItem(item)
+        }
+        return (
+            <>
+                {
+                    modalStatus && (
+                        <div className="Modal">
+                            <div className="ModalInner">
+                                <div className="list">
+                                    <div className="text-[32px] font-bold">
+                                        Kết quả từ Roboflow
+                                    </div>
+                                    <div className="">
+                                        Kích thước ảnh: {imagedata && imagedata.width}x{imagedata && imagedata.height}
+                                    </div>
+                                    <div>
+                                        Thời gian detect: {time && time}
+                                    </div>
+                                    <div className="text-[24px]">Kết quả</div>
+                                    <div className="text-[12px]">(Click vào đối tượng để xem thông tin chi tiết)</div>
+                                    <div className="predictionList px-3 py-1.5 grid grid-cols-2 gap-x-2 gap-y-1">
+                                        {
+                                            prediction.map((item,index)=>{
+                                                return (
+                                                    <button className="hover:opacity-40 max-w-[200px] text-left" onClick={() => handleItemClick(item)} key={index}>
+                                                        {index} : {item.class}
+                                                    </button>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                                <button onClick={() => setModalStatus(false)}>
+                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
+                                </button>                           
+                            </div>
+                        </div>
+                    )
+                }
+            </>
+        )
+    }
+
+
 
     return (
-        <>
+        <>  
+            <Modal modalStatus={modalStatus}/>
+            <ItemInfor itemStatus={itemStatus} currItem={currentItem}/>
             <li className="Card">
                 <div className="CardInner relative">
                     <button onClick={deleteHandler} className="absolute top-1 right-2 "><FontAwesomeIcon icon="fa-solid fa-xmark" className='z-20 text-[#D71313] text-xl' /></button>
@@ -74,7 +179,7 @@ export default function Card(props) {
                     </div>
                     <div className="flex gap-1">
                         <button className="checkBtn w-full" onClick={sampleTestingHandler}>Lấy dữ liệu</button>
-                        <button className="checkBtn w-full" onClick={() => setModalStatus(true)} >
+                        <button disabled={!check} className="CheckButton checkBtn w-full" onClick={() => setModalStatus(true)} >
                             Kiểm tra
                         </button>
                     </div>

@@ -1,14 +1,18 @@
 import * as React from 'react'
 import './Home.css'
-
 import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
 import axios from 'axios'
-axios.defaults.withCredentials = true;
+import { LoadingContext } from '../../context/LoadingContext.jsx';
+import ThreeDotsWave from '../Loading Motion/ThreeDotsWave';
 
 //React route
 import {Outlet, useNavigate} from "react-router-dom";
+axios.defaults.withCredentials = true;
+
 export default function Home(){
+  const {isLoading} = React.useContext(LoadingContext)
+
   const navigate = useNavigate()
   const [user, setUser] = React.useState()
   const [logOut,checkLogOut] = React.useState(false)
@@ -31,6 +35,9 @@ export default function Home(){
   return(
     user && (
      <div className="Home">
+      <div className={isLoading ? `LoadingScreen flex`: `LoadingScreen hidden`}>
+          <ThreeDotsWave/>
+      </div>
       <div className="HomeInner">
         <SideBar/>
         <div className="Content">

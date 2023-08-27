@@ -63,12 +63,13 @@ export default function Upload(){
                   <form className="uploadForm">
                       <div className="item">
                         <label className="font-semibold text-[20px]" htmlFor="name">Tên file</label>
-                        <input className="input-text" value="" type="text" name="name" id="name" placeholder="Nhập tên file" onChange={handleName}/>
+                        <input className="input-text" type="text" name="name" id="name" placeholder="Nhập tên file" onChange={handleName}/>
                       </div>
 
                       <div className="item">
                         <label className="font-semibold text-[20px]" htmlFor="image">Chọn file</label>
                         <FileUploader classes="dropZone"
+                        maxSize="2"
                         dropMessageStyle={{backgroundColor:'#393E46', color:'white', opacity:'100%'}}
                         hoverTitle="Drop Here" handleChange={handleFileSelected} name="file" types={fileTypes}/>
                       </div>

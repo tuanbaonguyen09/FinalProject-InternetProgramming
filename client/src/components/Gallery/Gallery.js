@@ -6,22 +6,13 @@ import Card from '../Card/Card';
 import ReactPaginate from 'react-paginate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 axios.defaults.withCredentials = true;
 
 
 export default function Gallery() {
     const navigate = useNavigate()
     const [imageList, setImageList] = React.useState([])
-    const [modalStatus, setModalStatus] = React.useState(false)
-    const [itemStatus, setItemStatus] = React.useState(false)
-    const [jsonObject, setJsonObject] = React.useState()
-
-    const [currentItem, setCurrentItem] = React.useState()
-
-    const [imagedata, setImageData] = React.useState()
-    const [prediction, setPrediction] = React.useState()
-    const [time, setTime] = React.useState()
-
     const configuration = {
         method: "post",
         url: "http://localhost:5000/api/gallery",
@@ -38,88 +29,8 @@ export default function Gallery() {
     }, []);
 
 
-    React.useEffect(()=>{
-        jsonObject && setImageData(jsonObject.image)
-        jsonObject && setPrediction(jsonObject.predictions)
-        jsonObject && setTime(jsonObject.time)
-    },[jsonObject])
-
-    const ItemInfor = ({itemStatus, currItem}) => {
-        
-        return (
-            <>
-                {
-                    currItem && itemStatus && (
-                        <div className="Item relative">
-                            <div className="ItemInner flex flex-col gap-1 justify-center">
-                                <div className="text-[24px] font-bold text-center">Thông tin chi tiết</div>
-                                <div className="mt-6">
-                                    {
-                                        Object.keys(currItem).map((key,index) => {
-                                        return (
-                                            <div className="text-[18px]" key={index}>{`- ${key}: ${currItem[key]}`}</div>
-                                        )
-                                        })
-                                    }
-                                </div>
- 
-                            </div>
-                            <button onClick={() => setItemStatus(false)}>
-                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
-                            </button>  
-                        </div>
-                    )
-                }
-            </>
-        )
-    }
 
 
-    const Modal = ({modalStatus}) => {
-        const handleItemClick = (item) => {
-            setItemStatus(true)
-            setCurrentItem(item)
-        }
-        return (
-            <>
-                {
-                    modalStatus && (
-                        <div className="Modal">
-                            <div className="ModalInner">
-                                <div className="list">
-                                    <div className="text-[32px] font-bold">
-                                        Kết quả từ Roboflow
-                                    </div>
-                                    <div className="">
-                                        Kích thước ảnh: {imagedata && imagedata.width}x{imagedata && imagedata.height}
-                                    </div>
-                                    <div>
-                                        Thời gian detect: {time && time}
-                                    </div>
-                                    <div className="text-[24px]">Kết quả</div>
-                                    <div className="text-[12px]">(Click vào đối tượng để xem thông tin chi tiết)</div>
-                                    <div className="predictionList px-3 py-1.5 grid grid-cols-2 gap-x-2 gap-y-1">
-                                        {
-                                            prediction.map((item,index)=>{
-                                                return (
-                                                    <button className="hover:opacity-40 max-w-[200px] text-left" onClick={() => handleItemClick(item)} key={index}>
-                                                        {index} : {item.class}
-                                                    </button>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                                <button onClick={() => setModalStatus(false)}>
-                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
-                                </button>                           
-                            </div>
-                        </div>
-                    )
-                }
-            </>
-        )
-    }
 
 
     const LoadingCards = ({currentCards}) => {
@@ -128,9 +39,9 @@ export default function Gallery() {
                 {
                     currentCards &&
                     currentCards.map((item, index) =>{
-                        return <Card setModal={setModalStatus}
-                        jsonObject = {jsonObject} 
-                        setJson={setJsonObject} item={item} key={index} />                                  
+                        return <Card 
+                        item={item} key={index} 
+                        />                                  
                     })
                 }
             </>
@@ -157,7 +68,7 @@ export default function Gallery() {
         return (
             <>  
             <div className="w-full flex flex-col justify-between">
-                    <ul className="grid grid-cols-5 gap-x-4 gap-y-8">  
+                    <ul className="grid grid-cols-3 gap-x-4 gap-y-8">  
                         <LoadingCards currentCards={currentCards}  />
                     </ul>
                     <div className="Pagination self-center">
@@ -182,12 +93,19 @@ export default function Gallery() {
 
     return (
         <>
+
+
             <div className="Gallery w-full h-full">
-                <Modal modalStatus={modalStatus}/>
-                <ItemInfor itemStatus={itemStatus} currItem={currentItem}/>
-                <div className="GalleryInner flex w-full p-4">
-                    <PaginatedCards cardPerPage={10} />                       
-                </div>
+                {imageList ? (
+                    <div className="GalleryInner flex w-full p-4">
+                        <PaginatedCards cardPerPage={6} />                       
+                    </div>
+                ):(
+                    <div className="p-4 text-[30px] font-bold">
+                        THƯ VIỆN TRỐNG !
+                    </div>
+                )}
+
             </div>
         </>
     )

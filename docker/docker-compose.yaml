@@ -4,13 +4,14 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      - MYSQL_DATABASE=test
+      - MYSQL_DATABASE=test 
       - MYSQL_ALLOW_EMPTY_PASSWORD=1,
     ports:
       - '3307:3306'
     expose:
       - 3306
-
+    healthcheck:
+      test: "exit 0"
 
   backend:      
     build:
@@ -19,6 +20,18 @@ services:
     environment:
       - DB_PORT=3306
       - DB_HOST=db
-      # - DB_HOST=host.docker.internal
     ports:
       - 5000:5000
+    depends_on:
+        db:
+          condition: service_healthy
+
+  frontend:      
+    build:
+      context: ../../client
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 3000:3000
+    depends_on:
+      - backend

@@ -16,7 +16,7 @@ export default function Creator () {
                         <img className="MainBanner object-cover" src={CreatorIMG} alt="" />
                     </div>
 
-                    <div className="w-full flex flex-col relative text-[#0C356A] justify-between">
+                    <div className="max-w-[650px] w-full flex flex-col relative text-[#0C356A] justify-between">
                         <div>
 
                         </div>
