@@ -38,14 +38,14 @@ export default function Header(props) {
 
     return ( 
         <header className="Header">
-            <div className="HeaderInner">
-                <div className="Title text-[#0C356A] font-bold text-[32px]">
-                    {FirstTitle}
+            <div className="HeaderInner text-[#0C356A]">
+                <div className="Title  font-bold text-[32px]">
+                    {FirstTitle.length > 0 ? FirstTitle: "HOME"}
 
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 font-bold">
                     Xin chào
-                    <button className={dropDown ? 'dropDownButton enabled' : 'dropDownButton disabled'} onClick={handleDropDown}><FontAwesomeIcon icon="fa-solid fa-chevron-down"/></button>
+                    <button className={dropDown ? 'dropDownButton enabled' : 'dropDownButton disabled'} onClick={handleDropDown}><FontAwesomeIcon className='text-[#0C356A]' icon="fa-solid fa-chevron-down"/></button>
                 </div>
                 
             </div>

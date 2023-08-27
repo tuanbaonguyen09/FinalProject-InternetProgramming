@@ -122,15 +122,15 @@ export default function Card(props) {
                             <div className="ModalInner">
                                 <div className="list">
                                     <div className="text-[32px] font-bold">
-                                        Kết quả từ Roboflow
+                                        Detection Result From Roboflow
                                     </div>
                                     <div className="">
-                                        Kích thước ảnh: {imagedata && imagedata.width}x{imagedata && imagedata.height}
+                                        Image Size: {imagedata && imagedata.width}x{imagedata && imagedata.height}
                                     </div>
                                     <div>
-                                        Thời gian detect: {time && time}
+                                        Time: {time && time}
                                     </div>
-                                    <div className="text-[24px]">Kết quả</div>
+                                    <div className="text-[24px]">Object List Result</div>
                                     <div className="text-[12px]">(Click vào đối tượng để xem thông tin chi tiết)</div>
                                     <div className="predictionList px-3 py-1.5 grid grid-cols-2 gap-x-2 gap-y-1">
                                         {
@@ -145,7 +145,7 @@ export default function Card(props) {
                                     </div>
                                 </div>
                                 <button onClick={() => setModalStatus(false)}>
-                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
+                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-1.5 top-1 text-[#cc0000]" />
                                 </button>                           
                             </div>
                         </div>
@@ -163,24 +163,24 @@ export default function Card(props) {
             <ItemInfor itemStatus={itemStatus} currItem={currentItem}/>
             <li className="Card">
                 <div className="CardInner relative">
-                    <button onClick={deleteHandler} className="absolute top-1 right-2 "><FontAwesomeIcon icon="fa-solid fa-xmark" className='z-20 text-[#D71313] text-xl' /></button>
+                    <button onClick={deleteHandler} className="absolute top-0.5 right-1.5 "><FontAwesomeIcon icon="fa-solid fa-xmark" className='z-20 text-[#D71313] text-base' /></button>
                     <div className="imgContainer">
                         <img src={`data:image/png;base64,${imageBuffer}`} />
                     </div>
                     <div className="Infor">
                         <div className="sub-item">
-                            <p className="font-bold">Tên: </p>
+                            <p className="font-bold">Name: </p>
                             {imageName}
                         </div>
                         <div className="sub-item">
-                            <p className="font-bold">Ngày up: </p>
+                            <p className="font-bold">Upload Time: </p>
                             {imageDate.slice(0,10)}
                         </div>
                     </div>
                     <div className="flex gap-1">
-                        <button className="checkBtn w-full" onClick={sampleTestingHandler}>Lấy dữ liệu</button>
+                        <button className="checkBtn w-full" onClick={sampleTestingHandler}>Detect</button>
                         <button disabled={!check} className="CheckButton checkBtn w-full" onClick={() => setModalStatus(true)} >
-                            Kiểm tra
+                            Result(JSON)
                         </button>
                     </div>
 

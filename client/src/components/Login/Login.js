@@ -3,7 +3,6 @@ import './Login.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 // Axios
 import axios from 'axios';
-import { UserContext } from '../../context/UserContext.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginBanner from '../../img/Login & Register/LoginBanner.jpg'
@@ -14,9 +13,6 @@ axios.defaults.withCredentials = true;
 
 export default function Login(){
     const navigate = useNavigate()
-    const {isLogin,setIsLogin} = React.useContext(UserContext)
-    const {userName,setUserName} = React.useContext(UserContext)
-
     const [email, setEmail] = React.useState()
     const [emailErr, setEmailErr] = React.useState(true)
 
@@ -51,7 +47,6 @@ export default function Login(){
                 alert(response.data.message)
             }else {
                 alert('Đăng nhập thành công')
-                setUserName(email)
                 navigate('/home')
             }
         }).catch(error => console.log(error))
