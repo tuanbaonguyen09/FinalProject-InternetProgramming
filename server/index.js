@@ -56,6 +56,7 @@ con.connect(function(err){
   con.query(sql, function (err, result) {
     if (err) throw err;
   })
+  
 })
 
 const upload = multer({storage:multer.memoryStorage()})

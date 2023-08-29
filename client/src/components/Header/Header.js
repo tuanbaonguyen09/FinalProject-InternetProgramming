@@ -39,7 +39,7 @@ export default function Header(props) {
     return ( 
         <header className="Header">
             <div className="HeaderInner text-[#0C356A]">
-                <div className="Title  font-bold text-[32px]">
+                <div className="Title  font-bold text-[16px] md:text-[24px] xl:text-[32px]">
                     {FirstTitle.length > 0 ? FirstTitle: "HOME"}
 
                 </div>

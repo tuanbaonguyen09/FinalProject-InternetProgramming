@@ -1,31 +1,30 @@
 
 
 .Upload{
-    @apply w-full h-full font-lato bg-slate-50;
+    @apply w-full h-full font-lato bg-slate-50 p-4;
     background-color: #b8c6db;
     background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
     & >.UploadInner{
-        @apply max-w-[70%] mx-auto  w-full h-full;
-
+        @apply xl:max-w-[70%] mx-auto  w-full h-full;
         .banner{
             
             img{
                 
-                @apply max-w-[600px] max-h-[600px] rounded-md aspect-[1] object-cover;
+                @apply hidden xl:flex max-w-[600px] max-h-[600px] rounded-md aspect-[1] object-cover;
             }
         }
         
         .UploadMain{
-            @apply w-full max-w-[400px] flex flex-col gap-10;
+            @apply w-full max-w-[300px] md:max-w-[400px] flex flex-col gap-4 md:gap-10;
             .title {
-                @apply font-bold text-[#0C356A] text-[36px];
+                @apply font-bold text-[#0C356A] text-[24px]  md:text-[36px];
 
             }
 
             .uploadForm{
                 @apply flex flex-col gap-4;
                 .item{
-                    @apply flex flex-col gap-2.5 text-[#0C356A];
+                    @apply max-w-[300px] flex flex-col gap-2.5 text-[#0C356A];
 
                     .input-text{
                         @apply border-2 border-[#929AAB] focus:outline-none p-2 rounded-lg text-[16px];
@@ -35,7 +34,9 @@
         }
     }
 }
+
 .dropZone{
+    min-width: 300px !important;
     border-radius: 8px !important;
     border: 2px solid #929AAB !important;
     padding: 30px 12px !important;

@@ -5,6 +5,7 @@
     transition: all 0.3s ease;
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
     max-width: 14%;
+    min-width: 150px;
     z-index: 2;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     & > .SideBarInner{
@@ -19,7 +20,7 @@
             @apply min-h-[67px] flex justify-between items-center text-white font-bold text-[26px] text-center px-6 py-3.5;
 
             .burgerIcon{
-                @apply relative flex flex-col  gap-1.5 w-6 h-6;
+                @apply hidden md:flex relative flex-col  gap-1.5 w-6 h-6;
 
                 span:nth-child(1) {
                     position: absolute;
@@ -87,6 +88,7 @@
 .SideBar.disabled{
     @apply w-full ;
     max-width: 5%;
+    min-width: 60px;
     transition: all 0.4s ease;
 
     .heading{

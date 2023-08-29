@@ -1,0 +1,15 @@
+.Main {
+    @apply px-6 md:px-4 xl:px-0;
+    .MainInner{
+        @apply  w-full h-full max-w-7xl mx-auto flex flex-col py-12 justify-center items-center;
+        .title{
+            @apply text-[18px] md:text-[34px] xl:text-[50px] text-white font-bold rounded-lg px-4 md:px-10 py-2 bg-[#0C356A] w-fit;
+        }
+        .Banner{
+            @apply hidden md:flex w-full md:max-w-[400px] md:max-h-[400px] xl:max-w-[500px] xl:max-h-[500px] -mt-6 h-full object-cover object-center;
+        }
+        .Infor{
+            @apply w-full flex flex-col gap-4 text-[#0C356A] h-fit px-2 md:py-12 py-4  rounded-lg;
+        }
+    }
+}

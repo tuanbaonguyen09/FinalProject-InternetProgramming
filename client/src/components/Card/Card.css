@@ -5,16 +5,16 @@
     & > .CardInner{
         @apply  w-fit p-5 rounded-lg flex flex-col gap-2.5;
         .imgContainer{
-            @apply w-[220px] h-[150px];
+            @apply w-[270px] h-[150px];
             img{
                 @apply rounded-md w-full h-full object-cover ;
             }
         }
         .Infor{
-            @apply flex flex-col gap-1 text-white;
+            @apply flex flex-col items-center gap-1 text-white text-[14px];
 
             .sub-item{
-                @apply flex gap-1 items-center;
+                @apply flex gap-px flex-col;
             }
         }
         .checkBtn{

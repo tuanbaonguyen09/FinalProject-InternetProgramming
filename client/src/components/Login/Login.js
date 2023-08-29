@@ -75,11 +75,11 @@ export default function Login(){
     return(
         <div className="Login">
             <div className="LoginInner">
-                <div className="w-full h-full">
+                <div className="w-full h-full hidden md:flex">
                     <img className="object-center" src={LoginBanner} alt="" />
                 </div>
                 <div className="LoginWindow w-full">
-                    <div className="text-[32px] mb-8 font-bold">Đăng Nhập</div>
+                    <div className="text-[32px] mb-8 font-bold text-center md:text-left">Đăng Nhập</div>
                     <form className="LoginForm" action="" >
                         <div className="item">
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />

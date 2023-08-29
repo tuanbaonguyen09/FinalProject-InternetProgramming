@@ -78,7 +78,7 @@ export default function Register() {
         <div className="Register">
             <div className="RegisterInner">
                 <div className="RegisterWindow w-full">
-                    <div className="text-[32px] mb-8 font-bold ">Đăng Ký</div>
+                    <div className="text-[32px] mb-8 font-bold text-center md:text-left">Đăng Ký</div>
                     <form className="RegisterForm" action="">
                         <div className="item">
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />
@@ -105,7 +105,7 @@ export default function Register() {
                     </form>
                 
                 </div>
-                <div className="w-full h-full">
+                <div className="w-full h-full hidden md:flex">
                     <img className="object-cover object-center" src={RegisterBanner} alt="" />
                 </div>
             </div>

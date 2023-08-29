@@ -38,7 +38,7 @@ const DotTransition2 = {
 
 export default function ThreeDotsWave() {
   return (
-    <div className="pr-[5%]">
+    <div className="">
       <div
         style={{
           display: "flex",

@@ -68,7 +68,7 @@ export default function Gallery() {
         return (
             <>  
             <div className="w-full flex flex-col justify-between">
-                    <ul className="grid grid-cols-3 gap-x-4 gap-y-8">  
+                    <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 md:gap-x-4 md:gap-y-8">  
                         <LoadingCards currentCards={currentCards}  />
                     </ul>
                     <div className="Pagination self-center">

@@ -20,7 +20,7 @@ export default function Upload(){
         } 
       })
     }, [])
-    const fileTypes = ["JPG", "PNG"]
+    const fileTypes = ["JPG", "PNG", "JPEG"]
     const [file, setFile] = React.useState()
     const [fileName, setFileName] = React.useState('')
     const handleFileSelected = (file) => {
@@ -52,7 +52,7 @@ export default function Upload(){
     return(
         <>
           <div className="Upload">
-              <div className="UploadInner flex gap-8 items-center justify-center">
+              <div className="UploadInner flex gap-2 md:gap-8 md:items-center md:justify-center">
                 <div className="banner">
                   <img src={UploadBanner} alt="" />
                 </div>
@@ -76,7 +76,7 @@ export default function Upload(){
                   </form>
 
                   <button onClick={uploadHandler}
-                      className=" hover:opacity-70
+                      className=" max-w-[300px] hover:opacity-70
                       bg-[#0C356A] text-[18 px] w-full px-8 py-5 rounded-lg text-white font-bold">
                           UPLOAD
                       </button>

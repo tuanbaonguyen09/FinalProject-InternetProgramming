@@ -12,25 +12,28 @@ export default function Creator () {
             <div className="CreatorMain
             ">
                 <div className="CreatorInner">
-                    <div className="w-full max-w-[450px]">
-                        <img className="MainBanner object-cover" src={CreatorIMG} alt="" />
+                    <div className="w-full max-w-[450px] hidden xl:flex">
+                        <img className="MainBanner object-cover " src={CreatorIMG} alt="" />
                     </div>
 
                     <div className="max-w-[650px] w-full flex flex-col relative text-[#0C356A] justify-between">
                         <div>
 
                         </div>
-                        <div className=" font-bold text-[60px] absolute top-8 -left-28">
+                        <div className="hidden xl:flex font-bold text-[60px] absolute top-8 -left-28">
                             HELLO,
                         </div>
-                        <div className="top-28 absolute font-bold text-[50px]">
+                        <div className="hidden xl:flex top-28 absolute font-bold text-[50px]">
                             I'm Nguyen Hoang Tuan Bao
+                        </div> 
+                        <div className="font-bold text-[24px] xl:hidden md:text-[30px]">
+                            I'm Nguyen Hoang Tuan Bao - 2012667
                         </div> 
 
                         <div className="flex flex-col gap-4 mb-12">
                             <div className="uppercase text-[20px] max-w-[50%] font-bold relative">
-                                <div className="mb-8">STUDENT ID</div>
-                                <div className="text-[35px] absolute bottom-0 right-3">2012667</div>
+                                <div className="mb-8 hidden xl:flex">STUDENT ID</div>
+                                <div className="text-[35px] absolute bottom-0 right-3 hidden xl:flex">2012667</div>
                             </div>
                             <div className="flex gap-4 items-center font-bold">
                                 <div>
