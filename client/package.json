@@ -63,7 +63,6 @@
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.10",
     "react-paginate": "^8.2.0",
-    "react-picture-annotation": "^1.2.0",
     "react-router-dom": "^6.15.0"
   }
 }

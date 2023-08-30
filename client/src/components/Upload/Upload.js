@@ -67,7 +67,7 @@ export default function Upload(){
                       </div>
 
                       <div className="item">
-                        <label className="font-semibold text-[20px]" htmlFor="image">Choose File</label>
+                        <label className="font-semibold text-[20px]" htmlFor="image">Choose File (below 2MB)</label>
                         <FileUploader classes="dropZone"
                         maxSize="2"
                         dropMessageStyle={{backgroundColor:'#393E46', color:'white', opacity:'100%'}}
