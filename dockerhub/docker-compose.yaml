@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: tuanbaonguyen09/2012667-finalproject:database
+    restart: always
+    environment:
+      - MYSQL_DATABASE=test 
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1,
+    ports:
+      - '3307:3306'
+    expose:
+      - 3306
+    healthcheck:
+      test: "exit 0"
+    volumes:
+      -../database/mydb.sql:/docker-entrypoint-initdb.d/mydb.sql
+
+  backend:      
+    image: tuanbaonguyen09/2012667-finalproject:backend
+    environment:
+      - DB_PORT=3306
+      - DB_HOST=db
+    ports:
+      - 5000:5000
+    depends_on:
+        db:
+          condition: service_healthy
+
+  frontend:   
+    image: tuanbaonguyen09/2012667-finalproject:frontend  
+    ports:
+      - 8080:8080
+      - 3000:3000
+    depends_on:
+      - backend

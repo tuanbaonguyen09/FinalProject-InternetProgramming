@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RegisterBanner from '../../img/Login & Register/RegisterBanner.jpg'
 
 import { NavLink } from 'react-router-dom';
+axios.defaults.withCredentials = true;
+
 
 export default function Register() {
     const navigate = useNavigate()
@@ -28,7 +30,7 @@ export default function Register() {
         }
         const configuration = {
             method: "post",
-            url: "/api/register",
+            url: "http://localhost:5000/api/register",
             data: {
               email : email,
               password: password,
@@ -76,7 +78,7 @@ export default function Register() {
         <div className="Register">
             <div className="RegisterInner">
                 <div className="RegisterWindow w-full">
-                    <div className="text-[32px] mb-8 font-bold ">Đăng Ký</div>
+                    <div className="text-[32px] mb-8 font-bold text-center md:text-left">Đăng Ký</div>
                     <form className="RegisterForm" action="">
                         <div className="item">
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />
@@ -103,7 +105,7 @@ export default function Register() {
                     </form>
                 
                 </div>
-                <div className="w-full h-full">
+                <div className="w-full h-full hidden md:flex">
                     <img className="object-cover object-center" src={RegisterBanner} alt="" />
                 </div>
             </div>

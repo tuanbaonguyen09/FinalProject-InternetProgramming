@@ -1,0 +1,11 @@
+.CreatorMain {
+    @apply flex items-center justify-center w-full h-full font-lato overflow-hidden;
+
+    .CreatorInner {
+        @apply flex justify-center gap-7 w-full h-fit max-w-[70%] mx-auto;
+        .MainBanner {
+            @apply rounded-lg;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        }
+    }
+}

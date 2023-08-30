@@ -3,18 +3,16 @@ import './Login.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 // Axios
 import axios from 'axios';
-import { UserContext } from '../../context/UserContext.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginBanner from '../../img/Login & Register/LoginBanner.jpg'
+
+axios.defaults.withCredentials = true;
 
 
 
 export default function Login(){
     const navigate = useNavigate()
-    const {isLogin,setIsLogin} = React.useContext(UserContext)
-    const {userName,setUserName} = React.useContext(UserContext)
-
     const [email, setEmail] = React.useState()
     const [emailErr, setEmailErr] = React.useState(true)
 
@@ -23,7 +21,7 @@ export default function Login(){
 
     const configuration = {
         method: "post",
-        url: "/api/login",
+        url: "http://localhost:5000/api/login",
         data: {
             email : email,
             password: password,
@@ -31,7 +29,7 @@ export default function Login(){
     }
     
     React.useEffect(() => {
-        axios.get('/api/login').then((response) => {
+        axios.get('http://localhost:5000/api/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 
@@ -49,7 +47,6 @@ export default function Login(){
                 alert(response.data.message)
             }else {
                 alert('Đăng nhập thành công')
-                setUserName(email)
                 navigate('/home')
             }
         }).catch(error => console.log(error))
@@ -78,11 +75,11 @@ export default function Login(){
     return(
         <div className="Login">
             <div className="LoginInner">
-                <div className="w-full h-full">
+                <div className="w-full h-full hidden md:flex">
                     <img className="object-center" src={LoginBanner} alt="" />
                 </div>
                 <div className="LoginWindow w-full">
-                    <div className="text-[32px] mb-8 font-bold">Đăng Nhập</div>
+                    <div className="text-[32px] mb-8 font-bold text-center md:text-left">Đăng Nhập</div>
                     <form className="LoginForm" action="" >
                         <div className="item">
                             <FontAwesomeIcon className='absolute top-3 text-sm' icon="fa-solid fa-user" />

@@ -7,25 +7,18 @@ import ReactPaginate from 'react-paginate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
+axios.defaults.withCredentials = true;
+
+
 export default function Gallery() {
     const navigate = useNavigate()
     const [imageList, setImageList] = React.useState([])
-    const [modalStatus, setModalStatus] = React.useState(false)
-    const [itemStatus, setItemStatus] = React.useState(false)
-    const [jsonObject, setJsonObject] = React.useState()
-
-    const [currentItem, setCurrentItem] = React.useState()
-
-    const [imagedata, setImageData] = React.useState()
-    const [prediction, setPrediction] = React.useState()
-    const [time, setTime] = React.useState()
-
     const configuration = {
         method: "post",
-        url: "/api/gallery",
+        url: "http://localhost:5000/api/gallery",
     }
     React.useEffect(() => {
-        axios.get('/api/login').then((response) => {
+        axios.get('http://localhost:5000/api/login').then((response) => {
             if(response.data.loggedIn == false){
               navigate('/login')
             } 
@@ -36,89 +29,8 @@ export default function Gallery() {
     }, []);
 
 
-    React.useEffect(()=>{
-        jsonObject && console.log(jsonObject)
-        jsonObject && setImageData(jsonObject.image)
-        jsonObject && setPrediction(jsonObject.predictions)
-        jsonObject && setTime(jsonObject.time)
-    },[jsonObject])
-
-    const ItemInfor = ({itemStatus, currItem}) => {
-        
-        return (
-            <>
-                {
-                    currItem && itemStatus && (
-                        <div className="Item relative">
-                            <div className="ItemInner flex flex-col gap-1 justify-center">
-                                <div className="text-[24px] font-bold text-center">Thông tin chi tiết</div>
-                                <div className="mt-6">
-                                    {
-                                        Object.keys(currItem).map((key,index) => {
-                                        return (
-                                            <div className="text-[18px]" key={index}>{`- ${key}: ${currItem[key]}`}</div>
-                                        )
-                                        })
-                                    }
-                                </div>
- 
-                            </div>
-                            <button onClick={() => setItemStatus(false)}>
-                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
-                            </button>  
-                        </div>
-                    )
-                }
-            </>
-        )
-    }
 
 
-    const Modal = ({modalStatus}) => {
-        const handleItemClick = (item) => {
-            setItemStatus(true)
-            setCurrentItem(item)
-            console.log(item)
-        }
-        return (
-            <>
-                {
-                    modalStatus && (
-                        <div className="Modal">
-                            <div className="ModalInner">
-                                <div className="list">
-                                    <div className="text-[32px] font-bold">
-                                        Kết quả từ Roboflow
-                                    </div>
-                                    <div className="">
-                                        Kích thước ảnh: {imagedata && imagedata.width}x{imagedata && imagedata.height}
-                                    </div>
-                                    <div>
-                                        Thời gian detect: {time && time}
-                                    </div>
-                                    <div className="text-[24px]">Kết quả</div>
-                                    <div className="predictionList grid grid-cols-2 gap-x-4 gap-y-1">
-                                        {
-                                            prediction.map((item,index)=>{
-                                                return (
-                                                    <button className="hover:opacity-40" onClick={() => handleItemClick(item)} key={index}>
-                                                        {index} : {item.class}
-                                                    </button>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                                <button onClick={() => setModalStatus(false)}>
-                                    <FontAwesomeIcon icon="fa-solid fa-xmark" className="absolute text-[21px] right-4 top-4 text-[#cc0000]" />
-                                </button>                           
-                            </div>
-                        </div>
-                    )
-                }
-            </>
-        )
-    }
 
 
     const LoadingCards = ({currentCards}) => {
@@ -127,9 +39,9 @@ export default function Gallery() {
                 {
                     currentCards &&
                     currentCards.map((item, index) =>{
-                        return <Card setModal={setModalStatus}
-                        jsonObject = {jsonObject} 
-                        setJson={setJsonObject} item={item} key={index} />                                  
+                        return <Card 
+                        item={item} key={index} 
+                        />                                  
                     })
                 }
             </>
@@ -155,18 +67,18 @@ export default function Gallery() {
 
         return (
             <>  
-            <div className="flex flex-col gap-12 justify-center items-center">
-                    <ul className="grid grid-cols-4 gap-x-4 gap-y-8">  
+            <div className="w-full flex flex-col justify-between">
+                    <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 md:gap-x-4 md:gap-y-8">  
                         <LoadingCards currentCards={currentCards}  />
                     </ul>
-                    <div className="Pagination">
+                    <div className="Pagination self-center">
                         <ReactPaginate 
                             breakLabel="..."
-                            nextLabel=">"
+                            nextLabel={<FontAwesomeIcon icon="fa-solid fa-chevron-right" />}
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={5}
                             pageCount={pageCount}
-                            previousLabel="<"
+                            previousLabel={<FontAwesomeIcon icon="fa-solid fa-chevron-left" />}
                             renderOnZeroPageCount={null}
                         />
                     </div>
@@ -181,12 +93,19 @@ export default function Gallery() {
 
     return (
         <>
-            <div className="Gallery w-full h-full p-6">
-                <Modal modalStatus={modalStatus}/>
-                <ItemInfor itemStatus={itemStatus} currItem={currentItem}/>
-                <div className="GalleryInner flex justify-center">
-                    <PaginatedCards cardPerPage={8} />                       
-                </div>
+
+
+            <div className="Gallery w-full h-full">
+                {imageList ? (
+                    <div className="GalleryInner flex w-full p-4">
+                        <PaginatedCards cardPerPage={6} />                       
+                    </div>
+                ):(
+                    <div className="p-4 text-[30px] font-bold">
+                        THƯ VIỆN TRỐNG !
+                    </div>
+                )}
+
             </div>
         </>
     )

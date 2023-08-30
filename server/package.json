@@ -6,7 +6,7 @@
   "scripts": {
     "server": "node index.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"cd ../client && npm run start\""
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "express-session": "^1.17.3",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
+    "mysql2": "^3.6.0",
     "save": "^2.9.0"
   }
 }

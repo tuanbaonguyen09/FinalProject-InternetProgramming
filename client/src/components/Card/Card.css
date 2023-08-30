@@ -1,25 +1,28 @@
 .Card{
-    @apply  w-fit h-fit self-center rounded-xl;
-    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+    @apply  w-fit h-fit self-center rounded-lg;
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     & > .CardInner{
-        @apply  w-fit p-4 rounded-lg flex flex-col gap-2.5;
+        @apply  w-fit p-5 rounded-lg flex flex-col gap-2.5;
         .imgContainer{
-            @apply w-[220px] h-[150px];
+            @apply w-[270px] h-[150px];
             img{
                 @apply rounded-md w-full h-full object-cover ;
             }
         }
         .Infor{
-            @apply flex flex-col gap-1 text-white;
+            @apply flex flex-col items-center gap-1 text-white text-[14px];
 
             .sub-item{
-                @apply flex gap-1 items-center;
+                @apply flex gap-px flex-col;
             }
         }
         .checkBtn{
             @apply hover:opacity-50
-             bg-[white] text-[14px] py-1 rounded text-[#393E46];
+             bg-[white] text-[12px] py-2 px-1 rounded text-[#393E46];
+        }
+        .checkBtn:disabled{
+            @apply opacity-50;
         }
     }
 }

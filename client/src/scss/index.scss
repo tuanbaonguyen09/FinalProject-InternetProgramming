@@ -5,3 +5,11 @@
 
 // Font define
 @import '../fonts/lato/style.css';
+
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padidng: 0;
+}
