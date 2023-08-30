@@ -4,7 +4,7 @@
 Roboflow model - SERN
 
 ## Docker
-My projects running with these ports:
+My projects are running using these ports:
 | Container | Port |
 | ------ | ------ |
 | Database | 3307 |
